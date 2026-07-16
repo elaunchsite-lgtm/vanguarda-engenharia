@@ -51,8 +51,13 @@ const slides: HeroSlide[] = [
       
       <img
         src={slide.image}
+        srcset={`${slide.image.replace(/w=\d+/, 'w=400')} 400w, ${slide.image.replace(/w=\d+/, 'w=800')} 800w, ${slide.image.replace(/w=\d+/, 'w=1200')} 1200w`}
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
         alt={slide.title}
         referrerpolicy="no-referrer"
+        loading={index === 0 ? "eager" : "lazy"}
+        fetchpriority={index === 0 ? "high" : "auto"}
+        decoding="async"
         class="slide-img w-full h-full object-cover object-center scale-105 transition-transform duration-[6000ms] ease-out"
       />
 
@@ -119,8 +124,8 @@ const slides: HeroSlide[] = [
     {slides.map((_, index) => (
       <button
         data-dot={index}
-        class={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-          index === 0 ? 'w-8 bg-amber-500' : 'w-2 bg-white/40 hover:bg-white/70'
+        class={`h-4 rounded-full transition-all duration-300 cursor-pointer min-w-[24px] ${
+          index === 0 ? 'w-10 bg-amber-500' : 'w-4 bg-white/60 hover:bg-white'
         }`}
         aria-label={`Ir para slide ${index + 1}`}
       />
@@ -153,11 +158,11 @@ const slides: HeroSlide[] = [
 
     dots.forEach((dot, idx) => {
       if (idx === index) {
-        dot.classList.remove('w-2', 'bg-white/40');
-        dot.classList.add('w-8', 'bg-amber-500');
+        dot.classList.remove('w-4', 'bg-white/60');
+        dot.classList.add('w-10', 'bg-amber-500');
       } else {
-        dot.classList.remove('w-8', 'bg-amber-500');
-        dot.classList.add('w-2', 'bg-white/40');
+        dot.classList.remove('w-10', 'bg-amber-500');
+        dot.classList.add('w-4', 'bg-white/60');
       }
     });
 
