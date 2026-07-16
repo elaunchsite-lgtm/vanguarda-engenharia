@@ -1,0 +1,289 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { TEAM_MEMBERS } from '../data';
+import Icon from '../components/Icon.astro';
+import { config } from '../lib/config';
+
+const values = [
+  {
+    title: 'Segurança Inegociável',
+    desc: 'Nenhuma meta de prazo ou economia justifica expor um único trabalhador a riscos técnicos.',
+    icon: 'ShieldAlert'
+  },
+  {
+    title: 'Qualidade Brutal',
+    desc: 'Seguimos critérios de conformidade internacional que garantem concreto e aço vitalícios.',
+    icon: 'Award'
+  },
+  {
+    title: 'Sustentabilidade Ativa',
+    desc: 'Reduzimos em até 40% a emissão de CO2 em nossas misturas e reciclamos resíduos no canteiro.',
+    icon: 'Target'
+  },
+  {
+    title: 'Precisão BIM',
+    desc: 'Zero improvisação em canteiro. Planejamos virtualmente cada tubo, conduíte e viga de sustentação.',
+    icon: 'Compass'
+  }
+];
+
+const milestones = [
+  { year: '2001', title: 'Fundação da Construtora', desc: 'Início focado em galpões de concreto armado pré-moldados e galpões comerciais.' },
+  { year: '2008', title: 'Certificação ISO 9001', desc: 'Conquista de padronizações e auditorias federais para obras civis de alta complexidade.' },
+  { year: '2015', title: 'Pioneirismo BIM', desc: 'Introdução de modelagem em dados 3D integrados para eliminar desperdícios de faturamento.' },
+  { year: '2021', title: 'Foco Carbono Zero', desc: 'Desenvolvimento pioneiro de concreto ecológico de alta durabilidade e resiliência com cinzas.' },
+  { year: '2026', title: 'Liderança de Infraestrutura', desc: 'Mais de 520 grandes obras entregues e atuação forte em retrofit de edifícios clássicos.' }
+];
+---
+
+<Layout title={`Sobre Nós — ${config.siteName}`} activePage="sobre">
+  <div class="w-full bg-slate-50 text-slate-800">
+    {/* Page Header Banner */}
+    <section class="bg-slate-950 py-20 px-4 text-center text-white relative">
+      <div class="absolute inset-0 z-0 opacity-20">
+        <img
+          src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80"
+          alt="Construção fundo"
+          referrerpolicy="no-referrer"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="relative z-10 max-w-4xl mx-auto space-y-4">
+        <span class="font-mono text-xs font-bold text-brand-primary tracking-widest block uppercase">
+          Conheça Nossa Estrutura
+        </span>
+        <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight uppercase leading-tight">
+          Nossa Trajetória &amp; Valores
+        </h1>
+        <div class="w-16 h-1 bg-brand-primary mx-auto"></div>
+        <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed">
+          A {config.siteName} alia excelência estrutural clássica a tecnologias digitais disruptivas de planejamento inteligente.
+        </p>
+      </div>
+    </section>
+
+    {/* History and DNA Section */}
+    <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Photos grid */}
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-4">
+            <div class="rounded-lg overflow-hidden h-48 border border-slate-200">
+              <img
+                src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=600&q=80"
+                alt="Engenharia de controle"
+                referrerpolicy="no-referrer"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="rounded-lg overflow-hidden h-64 border border-slate-200">
+              <img
+                src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80"
+                alt="Concreto e vidro"
+                referrerpolicy="no-referrer"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div class="space-y-4 pt-8">
+            <div class="rounded-lg overflow-hidden h-64 border border-slate-200">
+              <img
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80"
+                alt="Arrabhal de concreto"
+                referrerpolicy="no-referrer"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="rounded-lg overflow-hidden h-48 border border-slate-200">
+              <img
+                src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80"
+                alt="Logística de obras"
+                referrerpolicy="no-referrer"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Text contents */}
+        <div class="space-y-6">
+          <span class="font-mono text-xs font-bold text-brand-primary tracking-widest block uppercase">
+            Nosso DNA Estrutural
+          </span>
+          <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-slate-950 uppercase tracking-tight">
+            Mais de duas décadas erguendo o futuro urbano brasileiro
+          </h2>
+          <div class="w-16 h-1 bg-brand-primary"></div>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-light font-sans">
+            Diferente de construtoras convencionais que operam sob estimativas incertas de material e pessoal, a <strong>{config.siteName}</strong> nasceu sob a premissa de que a engenharia civil exige exatidão extrema de modelagem matemática.
+          </p>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Nossa abordagem une o rigor dos testes de materiais inovadores em nosso próprio Laboratório de P&amp;D à versatilidade conceitual da arquitetura biofílica. Seja edificando galpões industriais massivos ou reformando edifícios históricos pelo Retrofit, mitigamos gargalos para entregar projetos no prazo contratado sob qualquer condição macroeconômica.
+          </p>
+
+          {/* Mission Vision values block */}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-200">
+            <div class="space-y-2">
+              <span class="flex items-center space-x-2 text-slate-900 font-bold text-xs uppercase font-display tracking-wider">
+                <Icon name="Target" class="w-4 h-4 text-brand-primary" />
+                <span>Missão</span>
+              </span>
+              <p class="text-xs text-slate-500 leading-relaxed font-sans">
+                Erguer estruturas inovadoras, seguras e de baixo carbono que impulsionem negócios e promovam o bem-estar social urbano.
+              </p>
+            </div>
+            <div class="space-y-2">
+              <span class="flex items-center space-x-2 text-slate-900 font-bold text-xs uppercase font-display tracking-wider">
+                <Icon name="Eye" class="w-4 h-4 text-brand-primary" />
+                <span>Visão</span>
+              </span>
+              <p class="text-xs text-slate-500 leading-relaxed font-sans">
+                Ser referência absoluta na América Latina em engenharia civil integrada (BIM, Materiais Verdes e Gestão Turnkey).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Values Cards */}
+    <section class="py-20 bg-slate-900 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span class="font-mono text-xs font-bold text-brand-primary tracking-widest block uppercase">
+            O Que Guia Cada Obra
+          </span>
+          <h2 class="font-display text-2xl sm:text-3xl font-bold tracking-tight uppercase">
+            Nossos Valores Fundamentais
+          </h2>
+          <div class="w-16 h-1 bg-brand-primary mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {values.map((v) => (
+            <div
+              class="bg-slate-950 p-6 rounded-lg border border-slate-800 hover:border-brand-primary transition-colors flex flex-col justify-between"
+            >
+              <div class="space-y-4">
+                <div class="bg-brand-primary text-slate-950 p-3 rounded-md self-start inline-block">
+                  <Icon name={v.icon} class="w-5 h-5" />
+                </div>
+                <h3 class="font-display font-bold text-base text-white tracking-tight uppercase">
+                  {v.title}
+                </h3>
+                <p class="text-xs text-slate-400 leading-relaxed font-sans">
+                  {v.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Interactive Milestones Timeline */}
+    <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <span class="font-mono text-xs font-bold text-brand-primary tracking-widest block uppercase">
+          Nossa Linha do Tempo
+        </span>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-950 uppercase">
+          Evolução e Conquistas
+        </h2>
+        <div class="w-16 h-1 bg-brand-primary mx-auto"></div>
+      </div>
+
+      {/* Timeline Line representation */}
+      <div class="relative border-l border-slate-200 ml-4 md:ml-0 md:border-l-0 md:flex md:justify-between md:items-start md:space-x-4 max-w-5xl mx-auto">
+        {milestones.map((milestone) => (
+          <div class="mb-12 md:mb-0 relative pl-6 md:pl-0 md:pt-8 md:flex-1 md:text-center group">
+            {/* Timeline marker */}
+            <div class="absolute left-[-7px] top-1.5 md:left-1/2 md:translate-x-[-50%] md:top-[-9px] w-3.5 h-3.5 rounded-full bg-brand-primary border-4 border-slate-50 group-hover:bg-slate-950 transition-colors z-10 shadow-sm"></div>
+            
+            {/* Year badge */}
+            <span class="font-mono text-xs font-black text-brand-primary block md:mb-2 bg-amber-500/10 md:bg-transparent rounded px-2.5 py-0.5 md:p-0 inline-block">
+              {milestone.year}
+            </span>
+
+            {/* Text content inside milestone */}
+            <div class="space-y-1 mt-2">
+              <h4 class="font-display font-bold text-slate-900 text-sm sm:text-base leading-snug">
+                {milestone.title}
+              </h4>
+              <p class="text-xs text-slate-500 leading-relaxed max-w-xs md:mx-auto font-sans">
+                {milestone.desc}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Leadership Board of Directors */}
+    <section class="py-20 bg-white border-t border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span class="font-mono text-xs font-bold text-brand-primary tracking-widest block uppercase">
+            Corpo Diretor
+          </span>
+          <h2 class="font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-950 uppercase">
+            Liderança e Engenharia Técnica
+          </h2>
+          <div class="w-16 h-1 bg-brand-primary mx-auto"></div>
+          <p class="text-slate-500 text-sm font-sans">
+            Conheça os especialistas que guiam nossas obras civis com responsabilidade, inovação acadêmica e pragmatismo industrial.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {TEAM_MEMBERS.map((member) => (
+            <div
+              class="bg-slate-50 rounded-lg overflow-hidden border border-slate-100 flex flex-col group hover:border-brand-primary transition-all duration-350 shadow-sm"
+            >
+              {/* Photo */}
+              <div class="relative h-64 overflow-hidden bg-slate-200">
+                <img
+                  src={member.imageUrl}
+                  alt={member.name}
+                  referrerpolicy="no-referrer"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-60"></div>
+              </div>
+
+              {/* Role and Bio */}
+              <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                <div class="space-y-1">
+                  <h3 class="font-display font-bold text-slate-900 text-base leading-snug">
+                    {member.name}
+                  </h3>
+                  <span class="font-mono text-[10px] text-brand-primary font-bold block uppercase">
+                    {member.role}
+                  </span>
+                </div>
+                <p class="text-xs text-slate-500 leading-relaxed font-light font-sans">
+                  {member.bio}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Security Commitment Callout */}
+    <section class="py-16 bg-slate-950 text-white border-t border-slate-900">
+      <div class="max-w-4xl mx-auto px-4 text-center space-y-4">
+        <div class="text-brand-primary mx-auto w-10 h-10 flex items-center justify-center">
+          <Icon name="HardHat" class="w-10 h-10" />
+        </div>
+        <h3 class="font-display font-bold text-xl uppercase tracking-wider">
+          Compromisso Técnico de Segurança
+        </h3>
+        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto font-sans">
+          Nossa política interna de segurança é auditada trimestralmente. Fornecemos treinamentos contínuos de NR-35 (trabalho em altura), NR-18 (segurança em canteiros) e mantemos orgulhosamente o selo de zero acidentes técnicos graves nos últimos 12 anos de atuação pesada.
+        </p>
+      </div>
+    </section>
+  </div>
+</Layout>

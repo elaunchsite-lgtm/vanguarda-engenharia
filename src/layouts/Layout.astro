@@ -1,0 +1,68 @@
+---
+import '../index.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { config } from '../lib/config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  activePage?: string;
+}
+
+const { 
+  title, 
+  description = config.siteDescription,
+  activePage = "home" 
+} = Astro.props;
+
+// Format title exactly as standard SEO
+const finalTitle = title ? `${title} | ${config.siteName}` : config.siteName;
+
+// Replace SITE_URL placeholder in head and body plugins
+const siteUrl = config.siteUrl || (config.domain ? `https://${config.domain}` : '') || Astro.site?.href || '';
+const pluginsHead = config._plugins?.head?.replace(/SITE_URL/g, siteUrl) || '';
+const pluginsBody = config._plugins?.body?.replace(/SITE_URL/g, siteUrl) || '';
+
+// Parse primary color and optional secondary color
+const primaryColor = config.primaryColor || '#eab308';
+const secondaryColor = config.secondaryColor || '#0f172a';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>{finalTitle}</title>
+    <meta name="description" content={description} />
+    
+    {config.favicon ? (
+      <link rel="icon" href={config.favicon} />
+    ) : (
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    )}
+
+    {/* CSS custom variables for dynamic coloring */}
+    <style is:global define:vars={{ primary: primaryColor, secondary: secondaryColor }}>
+      :root {
+        --primary: var(--primary);
+        --secondary: var(--secondary);
+      }
+    </style>
+
+    {pluginsHead && <Fragment set:html={pluginsHead} />}
+  </head>
+  <body class="flex flex-col min-h-screen bg-slate-50 font-sans selection:bg-brand-primary selection:text-slate-950">
+    <Header activePage={activePage} />
+    
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <Footer />
+
+    {pluginsBody && <Fragment set:html={pluginsBody} />}
+  </body>
+</html>

@@ -1,0 +1,115 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { config } from '../lib/config';
+
+const lastUpdated = '14 Julho 2026';
+---
+
+<Layout title={`Política de Privacidade — ${config.siteName}`} activePage="politica-privacidade">
+  <div class="w-full bg-slate-50 text-slate-800 py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl border border-slate-100 shadow-sm p-6 sm:p-12 space-y-8">
+      {/* Top Header */}
+      <div class="border-b border-slate-100 pb-6 space-y-3">
+        <div class="flex items-center space-x-2 text-brand-primary">
+          <Icon name="ShieldAlert" class="w-6 h-6" />
+          <span class="font-mono text-xs uppercase font-bold tracking-widest">Conformidade Legal</span>
+        </div>
+        <h1 class="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-950 uppercase tracking-tight">
+          Política de Privacidade
+        </h1>
+        <div class="flex items-center space-x-2 text-xs text-slate-400 font-mono">
+          <Icon name="Calendar" class="w-3.5 h-3.5" />
+          <span>Última atualização: {lastUpdated}</span>
+        </div>
+      </div>
+
+      {/* Contents */}
+      <div class="space-y-6 text-slate-600 text-xs sm:text-sm leading-relaxed font-light font-sans">
+        <p>
+          Na <strong>{config.siteName} &amp; Construção Ltda.</strong>, privacidade e segurança de dados técnicos e pessoais são tratadas como premissas estruturais inegociáveis. Esta Política de Privacidade descreve de que forma coletamos, armazenamos, tratamos e protegemos as informações fornecidas por parceiros, clientes e visitantes técnicos do nosso site corporativo em estrita observância à <strong>Lei Geral de Proteção de Dados Pessoais (LGPD - Lei nº 13.709/2018)</strong>.
+        </p>
+
+        <div class="space-y-3">
+          <h2 class="font-display font-extrabold text-slate-950 uppercase text-sm sm:text-base tracking-wider border-l-2 border-brand-primary pl-2.5">
+            1. Informações que Coletamos
+          </h2>
+          <p>
+            Ao utilizar nossos canais de orçamento técnico ou simulação, podemos coletar os seguintes dados técnicos e pessoais necessários para elaboração de propostas civis formais:
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-slate-500">
+            <li><strong>Dados de Identificação:</strong> Nome completo, cargo corporativo, empresa de atuação e número de registro técnico (se aplicável).</li>
+            <li><strong>Dados de Contato:</strong> Endereço de e-mail corporativo, número de telefone celular ou comercial e perfis de redes sociais profissionais.</li>
+            <li><strong>Dados Técnicos do Imóvel/Terreno:</strong> Logradouro da obra, dimensões básicas de terreno, especificações geográficas preliminares, imagens de plantas civis e memoriais descritivos anexados.</li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h2 class="font-display font-extrabold text-slate-950 uppercase text-sm sm:text-base tracking-wider border-l-2 border-brand-primary pl-2.5">
+            2. Finalidade do Tratamento de Dados
+          </h2>
+          <p>
+            Todos os dados captados são processados exclusivamente sob bases legais legítimas para as seguintes finalidades corporativas de engenharia:
+          </p>
+          <ol class="list-decimal pl-5 space-y-1.5 text-slate-500">
+            <li>Elaboração de estudos de viabilidade técnica, precificação de insumos e montagem de propostas comerciais de obras.</li>
+            <li>Agendamento de visitas técnicas de campo de nossos engenheiros credenciados aos terrenos indicados.</li>
+            <li>Envio de relatórios técnicos de andamento de canteiro de obras e vistorias pós-projeto em regime contratual.</li>
+            <li>Envio de boletins de inovação de engenharia (como artigos técnicos de BIM e materiais ecológicos de nosso blog) caso autorizado explicitamente pelo usuário.</li>
+          </ol>
+        </div>
+
+        <div class="space-y-3">
+          <h2 class="font-display font-extrabold text-slate-950 uppercase text-sm sm:text-base tracking-wider border-l-2 border-brand-primary pl-2.5">
+            3. Segurança da Informação e Criptografia
+          </h2>
+          <p>
+            Adotamos salvaguardas tecnológicas rígidas para manter seus dados livres de vazamento, acessos não autorizados ou destruição indesejada:
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-slate-500">
+            <li>Armazenamos arquivos de plantas e dados cadastrais em servidores em nuvem criptografados com padrões de segurança militar (AES-256).</li>
+            <li>O tráfego de dados técnicos em nosso site ocorre sob protocolo de criptografia de ponta (SSL/HTTPS ativo).</li>
+            <li>O acesso interno às planilhas orçamentárias e de dados é limitado exclusivamente aos engenheiros responsáveis pela cotação do respectivo projeto.</li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h2 class="font-display font-extrabold text-slate-950 uppercase text-sm sm:text-base tracking-wider border-l-2 border-brand-primary pl-2.5">
+            4. Compartilhamento com Terceiros
+          </h2>
+          <p>
+            A {config.siteName} não comercializa quaisquer dados pessoais ou de plantas em nenhuma hipótese. O compartilhamento ocorre exclusivamente com parceiros operacionais estritos sob contratos de absoluto sigilo técnico, tais como:
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-slate-500">
+            <li>Sondas geológicas e topográficas terceirizadas necessárias para análise do terreno de fundação.</li>
+            <li>Fornecedores de concreto e aço estrutural para fins exclusivos de simulação de frete e dimensões.</li>
+            <li>Autoridades civis governamentais para emissão de alvarás de construção, habite-se e licenças ambientais.</li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h2 class="font-display font-extrabold text-slate-950 uppercase text-sm sm:text-base tracking-wider border-l-2 border-brand-primary pl-2.5">
+            5. Seus Direitos (LGPD)
+          </h2>
+          <p>
+            Como titular dos dados, você pode exercer a qualquer momento os seguintes direitos através do e-mail oficial:
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-slate-500">
+            <li>Confirmação da existência de tratamento técnico de seus dados.</li>
+            <li>Acesso imediato aos dados mantidos em nosso banco de dados.</li>
+            <li>Correção de dados incompletos ou inexatos de plantas ou contatos.</li>
+            <li>Eliminação de dados pessoais desnecessários tratados sob seu consentimento prévio.</li>
+          </ul>
+        </div>
+
+        <div class="space-y-3 pt-6 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+          <span>Encarregado de Proteção de Dados (DPO)</span>
+          <span class="flex items-center space-x-1">
+            <Icon name="ShieldCheck" class="w-3.5 h-3.5 text-brand-primary" />
+            <span>Conexão Segura Ativa</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

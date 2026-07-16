@@ -1,0 +1,496 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Icon from '../../components/Icon.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Fetch all posts to determine related posts
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts.filter((p) => p.id !== post.id).slice(0, 2);
+
+// Simulated initial comments
+const initialComments = [
+  {
+    id: 'com-1',
+    name: 'Eng. Roberto Albuquerque',
+    role: 'Coordenador Civil',
+    text: 'Excelente abordagem! Aqui na nossa consultoria começamos a exigir o modelo BIM em 2024 e o Clash Detection realmente evitou colisões severas de tubulações estruturais que nos custariam dezenas de milhares de reais.',
+    date: 'Há 2 dias'
+  },
+  {
+    id: 'com-2',
+    name: 'Arq. Mariana Mendes',
+    role: 'Arquiteta Urbanista',
+    text: 'O que mais me impressiona na modelagem BIM é a análise solar térmica integrada. O aproveitamento passivo da luz natural reduz custos de refrigeração e eleva o conforto do ocupante final de forma maravilhosa. Parabéns pelo artigo!',
+    date: 'Há 3 dias'
+  }
+];
+
+// Determine fallbacks dynamically
+const title = post.data.title;
+const category = post.data.category || 'Engenharia';
+const publishedAt = post.data.date || 'Julho 2026';
+const readTime = '6 min de leitura';
+const imageUrl = post.data.image || 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80';
+const tags = post.data.tags || ['Engenharia', 'Construção'];
+
+// Match author name to team avatar if possible, or use fallback
+const authorName = post.data.author || 'Eng. Ricardo Silveira';
+let authorAvatar = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';
+let authorRole = 'Especialista Técnico';
+
+if (authorName.includes('Helena')) {
+  authorAvatar = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80';
+  authorRole = 'Especialista em Materiais';
+} else if (authorName.includes('Tiago') || authorName.includes('Mendes')) {
+  authorAvatar = 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80';
+  authorRole = 'Líder de Design';
+} else if (authorName.includes('Vargas')) {
+  authorAvatar = 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80';
+  authorRole = 'CEO & Fundador';
+}
+---
+
+<Layout title={`${title} — Blog`} activePage="blog">
+  <div class="w-full bg-slate-50 text-slate-800 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      {/* Back navigation button */}
+      <a
+        href="/blog"
+        class="flex items-center space-x-2 text-xs sm:text-sm font-mono font-bold uppercase text-slate-600 hover:text-brand-primary transition-colors mb-8 cursor-pointer group inline-block"
+      >
+        <div class="flex items-center space-x-1">
+          <Icon name="ArrowLeft" class="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          <span>Voltar para Todos os Artigos</span>
+        </div>
+      </a>
+
+      {/* Layout Grid */}
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        {/* Main Article column */}
+        <article class="lg:col-span-8 bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden p-6 sm:p-10 space-y-8">
+          
+          {/* Metadata Header */}
+          <div class="space-y-4">
+            <span class="bg-brand-primary text-slate-950 px-2.5 py-1 text-[10px] font-mono font-bold uppercase rounded inline-block">
+              {category}
+            </span>
+            <h1 class="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-950 leading-tight uppercase">
+              {title}
+            </h1>
+
+            {/* Author & Read info bar */}
+            <div class="flex flex-wrap items-center gap-6 pt-4 border-t border-slate-100 text-xs text-slate-500 font-mono">
+              <div class="flex items-center space-x-3">
+                <img
+                  src={authorAvatar}
+                  alt={authorName}
+                  referrerpolicy="no-referrer"
+                  class="w-10 h-10 rounded-full object-cover border border-slate-200"
+                />
+                <div>
+                  <span class="font-sans font-bold text-slate-900 block">{authorName}</span>
+                  <span class="text-[10px] text-slate-400 block -mt-0.5">{authorRole}</span>
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-4">
+                <span class="flex items-center space-x-1">
+                  <Icon name="Calendar" class="w-4 h-4 text-brand-primary" />
+                  <span>{publishedAt}</span>
+                </span>
+                <span class="flex items-center space-x-1">
+                  <Icon name="Clock" class="w-4 h-4 text-brand-primary" />
+                  <span>{readTime}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Featured Hero Banner Image */}
+          <div class="h-64 sm:h-96 rounded-lg overflow-hidden border border-slate-100 bg-slate-100">
+            <img
+              src={imageUrl}
+              alt={title}
+              referrerpolicy="no-referrer"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Article Content Area */}
+          <div class="article-content max-w-none text-slate-700 leading-relaxed font-sans">
+            <Content />
+          </div>
+
+          {/* Article Tags Footer */}
+          <div class="pt-6 border-t border-slate-100">
+            <span class="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-3">
+              Assuntos relacionados:
+            </span>
+            <div class="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span
+                  class="bg-slate-50 border border-slate-200 text-slate-600 px-3 py-1 rounded text-xs font-mono font-medium hover:border-brand-primary hover:text-slate-950 transition-colors"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Interactive Comments Section */}
+          <div class="pt-10 border-t border-slate-100 space-y-8">
+            <div class="flex items-center space-x-2 text-slate-950">
+              <Icon name="MessageSquare" class="w-5 h-5 text-brand-primary" />
+              <h3 class="font-display font-extrabold text-base sm:text-lg uppercase tracking-tight">
+                Discussão Técnica (<span id="comment-count">{initialComments.length}</span>)
+              </h3>
+            </div>
+
+            {/* Comment Form */}
+            <form id="comment-form" class="bg-slate-50 p-6 rounded-lg border border-slate-150 space-y-4">
+              <span class="font-mono text-[10px] uppercase font-bold text-slate-500 tracking-wider block">
+                Deixe seu comentário técnico ou dúvida:
+              </span>
+
+              <div id="comment-success" class="hidden bg-emerald-50 border border-emerald-100 text-emerald-800 p-3.5 rounded text-xs flex items-center space-x-2 animate-in fade-in duration-300">
+                <Icon name="CheckCircle2" class="w-4 h-4 text-emerald-500 shrink-0" />
+                <span>Comentário publicado instantaneamente com sucesso no mural técnico!</span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  required
+                  id="comment-name"
+                  placeholder="Seu Nome Profissional *"
+                  class="bg-white border border-slate-200 focus:border-brand-primary p-2.5 rounded text-xs outline-none transition-all w-full animate-none"
+                />
+                <input
+                  type="email"
+                  required
+                  id="comment-email"
+                  placeholder="Seu E-mail Corporativo *"
+                  class="bg-white border border-slate-200 focus:border-brand-primary p-2.5 rounded text-xs outline-none transition-all w-full animate-none"
+                />
+              </div>
+
+              <textarea
+                required
+                rows="3"
+                id="comment-text"
+                placeholder="Escreva seu comentário técnico de valor... *"
+                class="bg-white border border-slate-200 focus:border-brand-primary p-2.5 rounded text-xs outline-none transition-all w-full resize-y"
+              ></textarea>
+
+              <div class="flex justify-end">
+                <button
+                  type="submit"
+                  class="bg-slate-950 hover:bg-brand-primary text-white hover:text-slate-950 px-5 py-2.5 rounded font-display text-xs font-bold uppercase tracking-wider transition-all flex items-center space-x-1.5 cursor-pointer"
+                >
+                  <Icon name="Send" class="w-3.5 h-3.5" />
+                  <span>Enviar Comentário</span>
+                </button>
+              </div>
+            </form>
+
+            {/* Comments List Container */}
+            <div id="comments-list" class="space-y-6">
+              {initialComments.map((com) => (
+                <div class="flex items-start space-x-4 p-4 rounded-lg bg-white border border-slate-100 hover:border-slate-200 transition-colors">
+                  <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full shrink-0 border border-slate-200">
+                    <Icon name="User" class="w-4 h-4" />
+                  </div>
+                  <div class="space-y-1.5 flex-1">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                      <div>
+                        <span class="font-sans font-bold text-xs text-slate-900 block sm:inline-block mr-2">
+                          {com.name}
+                        </span>
+                        <span class="font-mono text-[9px] text-brand-primary bg-amber-500/10 px-2 py-0.5 rounded font-semibold inline-block uppercase">
+                          {com.role}
+                        </span>
+                      </div>
+                      <span class="font-mono text-[10px] text-slate-400">
+                        {com.date}
+                      </span>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed font-sans">
+                      {com.text}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </article>
+
+        {/* Sidebar Author & Related Posts */}
+        <aside class="lg:col-span-4 space-y-8">
+          
+          {/* Author details card */}
+          <div class="bg-white rounded-xl p-6 border border-slate-150 shadow-sm space-y-4">
+            <h3 class="font-display font-extrabold text-slate-950 text-sm uppercase tracking-wider border-l-2 border-brand-primary pl-3">
+              Sobre o Autor
+            </h3>
+            <div class="flex items-center space-x-4">
+              <img
+                src={authorAvatar}
+                alt={authorName}
+                referrerpolicy="no-referrer"
+                class="w-14 h-14 rounded-full object-cover border border-slate-200"
+              />
+              <div>
+                <h4 class="font-sans font-bold text-sm text-slate-900 leading-snug">{authorName}</h4>
+                <span class="font-mono text-[10px] text-brand-primary font-bold block uppercase">{authorRole}</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed font-light font-sans pt-2">
+              Especialista residente da divisão de Engenharia de Valor da Vanguarda. Pesquisa e publica relatórios integrando normas regulatórias e inovações industriais para redução de passivos civis em grandes obras.
+            </p>
+          </div>
+
+          {/* Newsletter reminder */}
+          <div class="bg-slate-950 text-white p-6 rounded-xl border border-slate-900 space-y-4">
+            <span class="font-mono text-[10px] text-brand-primary font-bold uppercase block tracking-wider">
+              Auditoria de Custos
+            </span>
+            <h3 class="font-display font-bold text-sm uppercase font-sans">Gostou da Nossa Abordagem?</h3>
+            <p class="text-xs text-slate-400 leading-relaxed font-light font-sans">
+              Aplique estas metodologias no planejamento do seu próprio empreendimento comercial ou residencial. Nossos engenheiros de custos realizam estudos de viabilidade gratuitos.
+            </p>
+            <a
+              href="/contato"
+              class="w-full bg-brand-primary hover:bg-white text-slate-950 p-2.5 rounded font-display text-xs font-bold uppercase tracking-wider transition-all text-center block cursor-pointer"
+            >
+              Agendar Consulta Grátis
+            </a>
+          </div>
+        </aside>
+      </div>
+
+      {/* Related Posts section at bottom */}
+      {relatedPosts.length > 0 && (
+        <div class="pt-16 border-t border-slate-200 mt-16 space-y-8">
+          <h3 class="font-display font-extrabold text-slate-950 text-lg uppercase tracking-tight">
+            Artigos Técnicos Relacionados
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl">
+            {relatedPosts.map((relatedPost) => (
+              <BlogCard post={relatedPost} />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const commentForm = document.getElementById('comment-form');
+  const commentSuccess = document.getElementById('comment-success');
+  const commentsList = document.getElementById('comments-list');
+  const commentCountSpan = document.getElementById('comment-count');
+
+  if (commentForm && commentsList) {
+    commentForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const nameInput: any = document.getElementById('comment-name');
+      const emailInput: any = document.getElementById('comment-email');
+      const textInput: any = document.getElementById('comment-text');
+
+      const name = nameInput?.value || '';
+      const text = textInput?.value || '';
+
+      const submitBtn = commentForm.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.setAttribute('disabled', 'true');
+        submitBtn.innerHTML = '<span class="w-3.5 h-3.5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></span><span>Publicando...</span>';
+      }
+
+      setTimeout(() => {
+        // Create new comment element
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'flex items-start space-x-4 p-4 rounded-lg bg-white border border-slate-100 hover:border-slate-200 transition-colors animate-in fade-in slide-in-from-top-2 duration-300';
+        commentDiv.innerHTML = `
+          <div class="bg-slate-100 text-slate-500 p-2.5 rounded-full shrink-0 border border-slate-200">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </div>
+          <div class="space-y-1.5 flex-1">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+              <div>
+                <span class="font-sans font-bold text-xs text-slate-900 block sm:inline-block mr-2">
+                  ${name}
+                </span>
+                <span class="font-mono text-[9px] text-brand-primary bg-amber-500/10 px-2 py-0.5 rounded font-semibold inline-block uppercase">
+                  Profissional da Construção
+                </span>
+              </div>
+              <span class="font-mono text-[10px] text-slate-400">
+                Agora mesmo
+              </span>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed font-sans">
+              ${text}
+            </p>
+          </div>
+        `;
+
+        // Prepend comment
+        commentsList.insertBefore(commentDiv, commentsList.firstChild);
+
+        // Update comment count
+        if (commentCountSpan) {
+          const count = parseInt(commentCountSpan.textContent || '2', 10);
+          commentCountSpan.textContent = String(count + 1);
+        }
+
+        // Reset form inputs
+        if (nameInput) nameInput.value = '';
+        if (emailInput) emailInput.value = '';
+        if (textInput) textInput.value = '';
+
+        // Show confirmation success message
+        commentSuccess?.classList.remove('hidden');
+        setTimeout(() => {
+          commentSuccess?.classList.add('hidden');
+        }, 4000);
+
+        // Reset button
+        if (submitBtn) {
+          submitBtn.removeAttribute('disabled');
+          submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg><span>Enviar Comentário</span>';
+        }
+      }, 1200);
+    });
+  }
+</script>
+
+<style>
+  /* Astro Scoped Styles targeting dynamically rendered markdown elements */
+  .article-content {
+    font-family: var(--font-sans), sans-serif;
+  }
+  
+  .article-content :global(h1),
+  .article-content :global(h2),
+  .article-content :global(h3),
+  .article-content :global(h4),
+  .article-content :global(h5),
+  .article-content :global(h6) {
+    font-family: var(--font-display), sans-serif;
+    font-weight: 700;
+    color: #0f172a; /* text-slate-900 */
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  
+  .article-content :global(h1) {
+    font-size: 1.875rem; /* text-3xl */
+  }
+  
+  .article-content :global(h2) {
+    font-size: 1.5rem; /* text-2xl */
+    border-bottom: 2px solid #fbbf24; /* brand yellow accent underline */
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    margin-bottom: 1.25rem;
+  }
+  
+  .article-content :global(h3) {
+    font-size: 1.25rem; /* text-xl */
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .article-content :global(h3)::before {
+    content: "■";
+    color: #fbbf24; /* brand-primary yellow */
+    font-size: 0.85rem;
+  }
+  
+  .article-content :global(p) {
+    margin-bottom: 1.25rem;
+    color: #334155; /* text-slate-700 */
+    font-size: 0.975rem;
+    line-height: 1.75;
+  }
+  
+  .article-content :global(strong),
+  .article-content :global(b) {
+    font-weight: 800 !important;
+    color: #0f172a; /* Make sure bold stands out clearly as dark slate/black */
+  }
+  
+  .article-content :global(ul) {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .article-content :global(ul li) {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #334155;
+    font-size: 0.975rem;
+    line-height: 1.6;
+  }
+  
+  .article-content :global(ul li::before) {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #eab308; /* brand primary yellow */
+    font-weight: 800;
+    font-size: 1rem;
+  }
+  
+  .article-content :global(ol) {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .article-content :global(ol li) {
+    margin-bottom: 0.75rem;
+    color: #334155;
+    font-size: 0.975rem;
+    line-height: 1.6;
+    padding-left: 0.5rem;
+  }
+  
+  .article-content :global(ol li::marker) {
+    color: #eab308; /* brand yellow markers */
+    font-weight: 700;
+    font-family: var(--font-mono), monospace;
+  }
+  
+  .article-content :global(blockquote) {
+    border-left: 4px solid #eab308;
+    padding-left: 1.25rem;
+    margin: 1.75rem 0;
+    font-style: italic;
+    color: #475569; /* text-slate-600 */
+  }
+</style>

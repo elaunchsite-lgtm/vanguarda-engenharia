@@ -1,0 +1,119 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  post: {
+    id: string;
+    data: {
+      title: string;
+      description?: string;
+      date?: string;
+      author?: string;
+      category?: string;
+      tags?: string[];
+      image?: string;
+    };
+  };
+}
+
+const { post } = Astro.props;
+
+// Determine fallbacks dynamically
+const title = post.data.title;
+const id = post.id;
+const excerpt = post.data.description || 'Confira os detalhes técnicos e metodologias avançadas deste artigo de engenharia de valor.';
+const category = post.data.category || 'Engenharia';
+const publishedAt = post.data.date || 'Julho 2026';
+const readTime = '6 min de leitura';
+const imageUrl = post.data.image || 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80';
+
+// Match author name to team avatar if possible, or use fallback
+const authorName = post.data.author || 'Eng. Ricardo Silveira';
+let authorAvatar = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';
+let authorRole = 'Especialista Técnico';
+
+if (authorName.includes('Helena')) {
+  authorAvatar = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80';
+  authorRole = 'Especialista em Materiais';
+} else if (authorName.includes('Tiago') || authorName.includes('Mendes')) {
+  authorAvatar = 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80';
+  authorRole = 'Líder de Design';
+} else if (authorName.includes('Vargas')) {
+  authorAvatar = 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80';
+  authorRole = 'CEO & Fundador';
+}
+---
+
+<article 
+  class="bg-white rounded-lg overflow-hidden border border-slate-100 hover:border-brand-primary hover:shadow-xl transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+>
+  <a href={`/blog/${id}`} class="block h-full flex flex-col justify-between">
+    {/* Blog Thumbnail Image */}
+    <div class="relative h-52 overflow-hidden bg-slate-100">
+      <img
+        src={imageUrl}
+        alt={title}
+        referrerpolicy="no-referrer"
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      />
+      {/* Category Badge overlay */}
+      <div class="absolute top-4 left-4 z-10">
+        <span class="bg-brand-primary text-slate-950 px-2.5 py-1 text-[10px] font-mono font-bold uppercase rounded">
+          {category}
+        </span>
+      </div>
+    </div>
+
+    {/* Content wrapper */}
+    <div class="p-6 flex-1 flex flex-col justify-between space-y-6">
+      <div class="space-y-3">
+        {/* Metadata */}
+        <div class="flex items-center space-x-4 text-xs font-mono text-slate-400">
+          <span class="flex items-center space-x-1">
+            <Icon name="Calendar" class="w-3.5 h-3.5 text-brand-primary" />
+            <span>{publishedAt}</span>
+          </span>
+          <span class="flex items-center space-x-1">
+            <Icon name="Clock" class="w-3.5 h-3.5 text-brand-primary" />
+            <span>{readTime}</span>
+          </span>
+        </div>
+
+        {/* Title */}
+        <h3 class="font-display font-bold text-base sm:text-lg text-slate-950 group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug">
+          {title}
+        </h3>
+
+        {/* Excerpt */}
+        <p class="text-xs sm:text-sm text-slate-500 line-clamp-2 leading-relaxed font-sans">
+          {excerpt}
+        </p>
+      </div>
+
+      {/* Author Footer */}
+      <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <img
+            src={authorAvatar}
+            alt={authorName}
+            referrerpolicy="no-referrer"
+            class="w-7 h-7 rounded-full object-cover border border-slate-100"
+          />
+          <div>
+            <span class="font-sans font-semibold text-[11px] text-slate-800 block">
+              {authorName}
+            </span>
+            <span class="font-mono text-[9px] text-slate-400 block -mt-0.5">
+              {authorRole}
+            </span>
+          </div>
+        </div>
+
+        <span class="text-brand-primary hover:text-slate-950 font-display text-xs font-bold uppercase tracking-wider flex items-center space-x-1 group-hover:translate-x-1 transition-transform">
+          <span>Ler</span>
+          <Icon name="ArrowRight" class="w-3.5 h-3.5" />
+        </span>
+      </div>
+    </div>
+  </a>
+</article>

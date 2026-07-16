@@ -1,0 +1,17 @@
+{
+  "siteName": "Vanguarda Engenharia",
+  "siteDescription": "Website institucional moderno de construção civil, engenharia integrada BIM, retrofit estrutural e projetos arquitetônicos sustentáveis de alto padrão.",
+  "primaryColor": "#eab308",
+  "secondaryColor": "#0f172a",
+  "logoUrl": "",
+  "favicon": "",
+  "siteUrl": "",
+  "domain": "",
+  "navigation": [
+    { "label": "Início", "href": "/" },
+    { "label": "Sobre Nós", "href": "/sobre" },
+    { "label": "Blog & Artigos", "href": "/blog" },
+    { "label": "Contato", "href": "/contato" }
+  ],
+  "_plugins": { "head": "", "body": "", "enabled": [] }
+}

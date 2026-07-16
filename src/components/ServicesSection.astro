@@ -1,0 +1,150 @@
+---
+import { SERVICES } from '../data';
+import Icon from './Icon.astro';
+---
+
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-white text-slate-800">
+  <div class="max-w-7xl mx-auto">
+    {/* Headings */}
+    <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+      <span class="font-mono text-xs font-bold text-amber-500 tracking-widest block uppercase">
+        Nosso Escopo Técnico
+      </span>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-950 uppercase">
+        O Que Oferecemos de Melhor
+      </h2>
+      <div class="w-16 h-1 bg-amber-500 mx-auto"></div>
+      <p class="text-slate-500 text-sm sm:text-base leading-relaxed">
+        Desenvolvemos soluções verticais completas em engenharia civil e arquitetura comercial, unindo precisão orçamentária e tecnologias sustentáveis.
+      </p>
+    </div>
+
+    {/* Tab Layout Grid */}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      {/* Left Column: Vertical Tab selectors */}
+      <div class="lg:col-span-4 flex flex-col space-y-2 w-full">
+        <span class="font-mono text-[10px] uppercase tracking-widest text-slate-400 mb-2 font-semibold">
+          Selecione uma especialidade:
+        </span>
+        <div class="flex flex-row lg:flex-col overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 gap-2 no-scrollbar">
+          {SERVICES.map((service, idx) => {
+            const isActive = idx === 0;
+            return (
+              <button
+                data-tab-trigger={service.id}
+                class={`flex items-center space-x-3.5 px-5 py-4 rounded text-left transition-all duration-300 font-display text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer ${
+                  isActive
+                    ? 'service-tab-active bg-slate-950 text-amber-500 border-l-4 border-amber-500 shadow-md shadow-slate-900/10'
+                    : 'bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-950 border-l-4 border-transparent'
+                }`}
+              >
+                <span class="tab-icon text-amber-500">
+                  <Icon name={service.icon} class="w-5 h-5" />
+                </span>
+                <span>{service.title.split(' ')[0]} {service.title.split(' ')[1] || ''}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Right Column: Tab Contents */}
+      <div class="lg:col-span-8 relative">
+        {SERVICES.map((service, idx) => {
+          const isActive = idx === 0;
+          return (
+            <div
+              data-tab-panel={service.id}
+              class={`bg-slate-50 rounded-xl p-6 sm:p-8 border border-slate-100 shadow-sm grid grid-cols-1 md:grid-cols-12 gap-8 min-h-[420px] transition-all duration-500 ${
+                isActive ? 'block' : 'hidden'
+              }`}
+            >
+              {/* Details Left */}
+              <div class="md:col-span-7 flex flex-col justify-between space-y-6">
+                <div class="space-y-4">
+                  <h3 class="font-display text-xl sm:text-2xl font-extrabold text-slate-950 tracking-tight">
+                    {service.title}
+                  </h3>
+                  <p class="text-sm font-semibold text-amber-600 font-mono">
+                    {service.description}
+                  </p>
+                  <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                    {service.fullDetails}
+                  </p>
+                </div>
+
+                {/* Checklist items */}
+                <div class="space-y-3.5">
+                  <span class="font-mono text-[10px] uppercase tracking-wider font-bold text-slate-400 block">
+                    Benefícios &amp; Garantias:
+                  </span>
+                  <ul class="grid grid-cols-1 gap-2.5">
+                    {service.benefits.map((benefit) => (
+                      <li class="flex items-start space-x-2.5 text-xs text-slate-600 leading-relaxed">
+                        <Icon name="CheckCircle2" class="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Details Right: Image */}
+              <div class="md:col-span-5 relative h-56 md:h-full min-h-[220px] rounded-lg overflow-hidden group border border-slate-200">
+                <img
+                  src={service.imageUrl}
+                  alt={service.title}
+                  referrerpolicy="no-referrer"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60" />
+                <div class="absolute bottom-4 left-4 right-4 text-white z-10">
+                  <span class="font-mono text-[10px] tracking-widest text-amber-500 block uppercase font-bold">
+                    VANGUARDA PREMIUM
+                  </span>
+                  <span class="font-display text-xs font-semibold uppercase">
+                    Engenharia de Alto Padrão
+                  </span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const triggers = document.querySelectorAll('[data-tab-trigger]');
+  const panels = document.querySelectorAll('[data-tab-panel]');
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const targetId = trigger.getAttribute('data-tab-trigger');
+
+      // Update active button state
+      triggers.forEach((btn) => {
+        if (btn === trigger) {
+          btn.classList.add('bg-slate-950', 'text-amber-500', 'border-l-4', 'border-amber-500', 'shadow-md', 'shadow-slate-900/10');
+          btn.classList.remove('bg-slate-50', 'text-slate-700', 'hover:bg-slate-100', 'hover:text-slate-950', 'border-l-4', 'border-transparent');
+        } else {
+          btn.classList.remove('bg-slate-950', 'text-amber-500', 'border-l-4', 'border-amber-500', 'shadow-md', 'shadow-slate-900/10');
+          btn.classList.add('bg-slate-50', 'text-slate-700', 'hover:bg-slate-100', 'hover:text-slate-950', 'border-l-4', 'border-transparent');
+        }
+      });
+
+      // Update visible panel state
+      panels.forEach((panel) => {
+        const panelId = panel.getAttribute('data-tab-panel');
+        if (panelId === targetId) {
+          panel.classList.remove('hidden');
+          panel.classList.add('block');
+        } else {
+          panel.classList.remove('block');
+          panel.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

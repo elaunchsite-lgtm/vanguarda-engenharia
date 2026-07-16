@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroCarousel from '../components/HeroCarousel.astro';
+import ServicesSection from '../components/ServicesSection.astro';
+import ProjectGallery from '../components/ProjectGallery.astro';
+import Icon from '../components/Icon.astro';
+import { TESTIMONIALS } from '../data';
+import { config } from '../lib/config';
+
+const stats = [
+  { value: '25+', label: 'Anos de Mercado', desc: 'Sólida trajetória civil', icon: 'Award' },
+  { value: '520+', label: 'Obras Entregues', desc: 'Marcos urbanos e logísticos', icon: 'CheckCircle2' },
+  { value: '180+', label: 'Colaboradores Ativos', desc: 'Engenheiros e especialistas', icon: 'User' },
+  { value: '0', label: 'Acidentes de Trabalho', desc: 'Segurança absoluta em 1º lugar', icon: 'HardHat' }
+];
+
+const clientLogos = [
+  { name: 'BuildPro+', type: 'Industrial' },
+  { name: 'Constructis', type: 'Estruturas' },
+  { name: 'GiantBuild', type: 'Infraestrutura' },
+  { name: 'OutBox Space', type: 'Corporativo' },
+  { name: 'StormColl', type: 'Energias' }
+];
+---
+
+<Layout title={`${config.siteName} — Engenharia & Construção`} activePage="home">
+  <div class="w-full bg-slate-50">
+    {/* Sliding Hero Slider */}
+    <HeroCarousel />
+
+    {/* Trust Quote Banner */}
+    <section class="bg-slate-900 border-b border-slate-800 text-white py-8 px-4 text-center">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <p class="font-display text-sm sm:text-base font-bold uppercase tracking-wider text-brand-primary">
+          ★ Serviço Rápido, Planejamento Milimétrico, Segurança Absoluta.
+        </p>
+        <a
+          href="/contato"
+          class="bg-brand-primary hover:bg-white text-slate-950 font-display text-xs font-bold uppercase tracking-wider px-6 py-3 rounded transition-all cursor-pointer inline-block"
+        >
+          Solicitar Orçamento Grátis
+        </a>
+      </div>
+    </section>
+
+    {/* Key Numbers / Stats Grid */}
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto -mt-10 relative z-30 font-sans">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {stats.map((stat) => (
+          <div 
+            class="bg-white rounded-lg p-6 border border-slate-100 shadow-xl shadow-slate-950/5 flex items-start space-x-4 hover:border-brand-primary transition-colors"
+          >
+            <div class="bg-slate-950 text-brand-primary p-3 rounded-lg">
+              <Icon name={stat.icon} class="w-5 h-5" />
+            </div>
+            <div>
+              <span class="font-display font-black text-2xl sm:text-3xl text-slate-950 block tracking-tight">
+                {stat.value}
+              </span>
+              <span class="font-sans font-bold text-xs text-slate-800 block uppercase mt-0.5">
+                {stat.label}
+              </span>
+              <span class="font-sans text-[11px] text-slate-400 block mt-0.5 leading-relaxed">
+                {stat.desc}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Side-by-Side Presentation Section */}
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Text content */}
+        <div class="space-y-6">
+          <span class="font-mono text-xs font-bold text-brand-primary tracking-widest block uppercase">
+            Quem Somos nós
+          </span>
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight uppercase">
+            {config.siteName}: Construindo as Fundações do Amanhã
+          </h2>
+          <div class="w-16 h-1 bg-brand-primary"></div>
+          
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-light font-sans">
+            Fundada há 25 anos com o propósito de redefinir o cenário da construção pesada e do alto padrão corporativo no Brasil, a <strong>{config.siteName}</strong> integra inteligência computacional, modelagem BIM avançada e respeito rigoroso ao meio ambiente.
+          </p>
+          <p class="text-slate-600 text-sm leading-relaxed font-sans">
+            Trabalhamos sob a premissa de que uma obra de sucesso exige previsibilidade absoluta. Por isso, eliminamos surpresas financeiras usando metodologias de simulação tridimensional que preveem riscos estruturais, logísticos e geológicos antes do início do canteiro.
+          </p>
+
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs font-bold text-slate-800 font-sans">
+            <li class="flex items-center space-x-2">
+              <Icon name="CheckCircle2" class="w-4 h-4 text-brand-primary shrink-0" />
+              <span>Licenciamento Ambiental Rápido</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <Icon name="CheckCircle2" class="w-4 h-4 text-brand-primary shrink-0" />
+              <span>Garantia Estrutural de 5 Anos</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <Icon name="CheckCircle2" class="w-4 h-4 text-brand-primary shrink-0" />
+              <span>Equipe Técnica Própria Credenciada</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <Icon name="CheckCircle2" class="w-4 h-4 text-brand-primary shrink-0" />
+              <span>Materiais Ecológicos Certificados</span>
+            </li>
+          </ul>
+
+          <div class="pt-4">
+            <a
+              href="/sobre"
+              class="bg-slate-950 text-white hover:bg-brand-primary hover:text-slate-950 px-6 py-3.5 rounded font-display text-xs font-bold uppercase tracking-wider transition-all cursor-pointer inline-block"
+            >
+              Conheça Nossa História
+            </a>
+          </div>
+        </div>
+
+        {/* Graphical side panel */}
+        <div class="relative rounded-lg overflow-hidden h-96 lg:h-[480px] border border-slate-100 shadow-xl group">
+          <img
+            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80"
+            alt={`Canteiro de obras ${config.siteName}`}
+            referrerpolicy="no-referrer"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+          {/* Ambient orange badge on the bottom */}
+          <div class="absolute bottom-6 left-6 right-6 bg-slate-950/90 text-white p-5 rounded border-l-4 border-brand-primary flex justify-between items-center z-10">
+            <div>
+              <span class="font-mono text-[10px] text-brand-primary font-bold block uppercase tracking-wider">Certificação Ativa</span>
+              <span class="font-display font-bold text-sm uppercase">Padrão de Qualidade ISO 9001</span>
+            </div>
+            <span class="bg-brand-primary text-slate-950 rounded-full px-2.5 py-1 text-[10px] font-mono font-black uppercase">
+              Aprovada
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Services Tabs section */}
+    <ServicesSection />
+
+    {/* Dynamic Concrete CTA Mid-Banner */}
+    <section class="relative py-24 bg-slate-950 overflow-hidden text-center text-white">
+      <div class="absolute inset-0 z-0 opacity-40">
+        <img
+          src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=1600&q=80"
+          alt="Concreto bruto industrial"
+          referrerpolicy="no-referrer"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/85 to-slate-950 z-10"></div>
+      
+      <div class="relative z-20 max-w-4xl mx-auto px-4 space-y-6">
+        <span class="font-mono text-xs font-bold text-brand-primary tracking-widest block uppercase">
+          Do Esboço Inicial ao Habite-se
+        </span>
+        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-tight">
+          Viabilizamos Projetos de Alta Complexidade Técnica
+        </h2>
+        <div class="w-16 h-1 bg-brand-primary mx-auto"></div>
+        <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed font-sans">
+          Seja uma nova torre comercial na Faria Lima, um retrofit industrial de galpão histórico ou uma residência tecnológica de alto luxo, a {config.siteName} é sua melhor parceira civil.
+        </p>
+        <div class="pt-4">
+          <a
+            href="/contato"
+            class="bg-brand-primary hover:bg-white text-slate-950 font-display text-xs sm:text-sm font-bold uppercase tracking-wider px-8 py-4 rounded transition-all cursor-pointer shadow-lg shadow-brand-primary/10 inline-block"
+          >
+            Falar com Engenheiro de Custos
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* Portfolio Gallery section */}
+    <ProjectGallery />
+
+    {/* Client testimonials (O que nossos parceiros dizem) */}
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <span class="font-mono text-xs font-bold text-brand-primary tracking-widest block uppercase">
+          Feedback e Parcerias
+        </span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-950 uppercase">
+          Quem Confia em Nosso Trabalho
+        </h2>
+        <div class="w-16 h-1 bg-brand-primary mx-auto"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {TESTIMONIALS.map((t) => (
+          <div
+            class="bg-white rounded-lg p-6 border border-slate-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow relative"
+          >
+            <div class="absolute top-6 right-6 text-slate-100 shrink-0">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path d="M11.19 12.12c0-1.88-1.02-3.51-2.55-4.38a4.996 4.996 0 0 0-4.66.12 4.975 4.975 0 0 0-2.3 4.26c0 2.76 2.24 5 5 5 1.76 0 3.25-1.12 3.86-2.69.41-.33.65-.8.65-1.31zm10.5 0c0-1.88-1.02-3.51-2.55-4.38a4.996 4.996 0 0 0-4.66.12 4.975 4.975 0 0 0-2.3 4.26c0 2.76 2.24 5 5 5 1.76 0 3.25-1.12 3.86-2.69.41-.33.65-.8.65-1.31z"></path></svg>
+            </div>
+            <div class="space-y-4 relative z-10">
+              {/* Rating */}
+              <div class="flex space-x-1">
+                {[...Array(t.rating)].map(() => (
+                  <Icon name="Star" class="w-4 h-4 text-brand-primary" />
+                ))}
+              </div>
+              <p class="text-slate-600 text-xs sm:text-sm leading-relaxed italic font-sans">
+                "{t.text}"
+              </p>
+            </div>
+
+            <div class="pt-6 border-t border-slate-100 flex flex-col mt-6">
+              <span class="font-sans font-bold text-sm text-slate-900 block">
+                {t.name}
+              </span>
+              <span class="font-mono text-[10px] text-brand-primary font-semibold block uppercase">
+                {t.role} — {t.company}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Client trust logos */}
+      <div class="mt-20 pt-10 border-t border-slate-200">
+        <span class="font-mono text-[10px] uppercase tracking-widest text-slate-400 text-center block mb-8 font-bold">
+          Algumas corporações que auditam e validam nossas obras:
+        </span>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 items-center justify-center text-center font-sans">
+          {clientLogos.map((logo) => (
+            <div 
+              class="bg-white py-4 px-6 rounded border border-slate-100 shadow-sm text-center font-display"
+            >
+              <span class="font-extrabold text-sm text-slate-900 block tracking-tight">
+                {logo.name}
+              </span>
+              <span class="font-mono text-[8px] text-slate-400 block tracking-widest uppercase mt-0.5">
+                {logo.type}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

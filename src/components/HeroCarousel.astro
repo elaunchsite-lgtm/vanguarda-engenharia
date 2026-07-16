@@ -1,0 +1,212 @@
+---
+import Icon from './Icon.astro';
+
+interface HeroSlide {
+  image: string;
+  preTitle: string;
+  title: string;
+  description: string;
+  ctaText: string;
+  ctaTarget: string;
+}
+
+const slides: HeroSlide[] = [
+  {
+    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop',
+    preTitle: 'VANGUARDA ENGENHARIA',
+    title: 'RENOVANDO GRANDES INFRAESTRUTURAS URBANAS',
+    description: 'Unimos tecnologia BIM de ponta e planejamento milimétrico para erguer arranha-céus icônicos e complexos industriais de altíssima performance.',
+    ctaText: 'Ver Nossos Projetos',
+    ctaTarget: '#projetos'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop',
+    preTitle: 'TECNOLOGIA & SUSTENTABILIDADE',
+    title: 'FACHADAS INTELIGENTES E DESIGN BIOFÍLICO',
+    description: 'Projetamos sedes corporativas futuristas com certificação ecológica que minimizam o consumo de energia e otimizam a produtividade.',
+    ctaText: 'Ler Nosso Blog',
+    ctaTarget: '/blog'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop',
+    preTitle: 'EXCELÊNCIA RESIDENCIAL',
+    title: 'CASAS CONCEITO DE ALTO PADRÃO',
+    description: 'Estruturas de concreto bruto e vidro integradas à paisagem, projetadas sob os mais exigentes critérios de conforto térmico e elegância.',
+    ctaText: 'Iniciar Orçamento',
+    ctaTarget: '/contato'
+  }
+];
+---
+
+<section id="hero-carousel" class="relative w-full h-[65vh] sm:h-[75vh] md:h-[85vh] bg-slate-950 overflow-hidden">
+  {slides.map((slide, index) => (
+    <div
+      data-index={index}
+      class={`hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+        index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+      }`}
+    >
+      {/* Dark overlay with industrial yellow hue */}
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-transparent z-10" />
+      
+      <img
+        src={slide.image}
+        alt={slide.title}
+        referrerpolicy="no-referrer"
+        class="slide-img w-full h-full object-cover object-center scale-105 transition-transform duration-[6000ms] ease-out"
+      />
+
+      {/* Slide Content */}
+      <div class="absolute inset-0 z-20 flex items-center">
+        <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 text-white">
+          <div class="max-w-2xl space-y-4 md:space-y-6">
+            {/* Pre-title */}
+            <span class="font-mono text-xs sm:text-sm font-semibold text-amber-500 tracking-widest block uppercase">
+              {slide.preTitle}
+            </span>
+            
+            {/* Title */}
+            <h1 class="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight uppercase leading-tight">
+              {slide.title}
+            </h1>
+            
+            {/* Description */}
+            <p class="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed font-light">
+              {slide.description}
+            </p>
+            
+            {/* CTA Buttons */}
+            <div class="pt-2 flex flex-wrap gap-4 items-center">
+              <a
+                href={slide.ctaTarget}
+                class="bg-amber-500 text-slate-950 hover:bg-white hover:text-slate-950 px-6 py-3.5 rounded font-display text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 flex items-center space-x-2 group cursor-pointer shadow-lg shadow-amber-500/10"
+              >
+                <span>{slide.ctaText}</span>
+                <Icon name="ArrowRight" class="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+              </a>
+              
+              <a
+                href="/sobre"
+                class="border border-white/20 hover:border-amber-500 hover:bg-white/5 text-white px-6 py-3.5 rounded font-display text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 flex items-center space-x-2 cursor-pointer"
+              >
+                <span>Nossa Empresa</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+
+  {/* Manual Navigation Arrows */}
+  <button
+    id="hero-prev-btn"
+    class="absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-slate-900/40 hover:bg-amber-500 hover:text-slate-950 text-white p-3 rounded-full border border-white/10 hover:border-transparent transition-all cursor-pointer hidden sm:block"
+    aria-label="Slide anterior"
+  >
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </button>
+  <button
+    id="hero-next-btn"
+    class="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-slate-900/40 hover:bg-amber-500 hover:text-slate-950 text-white p-3 rounded-full border border-white/10 hover:border-transparent transition-all cursor-pointer hidden sm:block"
+    aria-label="Próximo slide"
+  >
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+  </button>
+
+  {/* Slide Indicators/Dots */}
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex space-x-3">
+    {slides.map((_, index) => (
+      <button
+        data-dot={index}
+        class={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+          index === 0 ? 'w-8 bg-amber-500' : 'w-2 bg-white/40 hover:bg-white/70'
+        }`}
+        aria-label={`Ir para slide ${index + 1}`}
+      />
+    ))}
+  </div>
+</section>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('[data-dot]');
+  const totalSlides = slides.length;
+  let timerId: any = null;
+
+  function showSlide(index: number) {
+    slides.forEach((slide, idx) => {
+      const isCurrent = idx === index;
+      const img = slide.querySelector('.slide-img');
+      
+      if (isCurrent) {
+        slide.classList.remove('opacity-0', 'z-0');
+        slide.classList.add('opacity-100', 'z-10');
+        if (img) img.style.transform = 'scale(1)';
+      } else {
+        slide.classList.remove('opacity-100', 'z-10');
+        slide.classList.add('opacity-0', 'z-0');
+        if (img) img.style.transform = 'scale(1.05)';
+      }
+    });
+
+    dots.forEach((dot, idx) => {
+      if (idx === index) {
+        dot.classList.remove('w-2', 'bg-white/40');
+        dot.classList.add('w-8', 'bg-amber-500');
+      } else {
+        dot.classList.remove('w-8', 'bg-amber-500');
+        dot.classList.add('w-2', 'bg-white/40');
+      }
+    });
+
+    current = index;
+  }
+
+  function nextSlide() {
+    showSlide((current + 1) % totalSlides);
+  }
+
+  function prevSlide() {
+    showSlide((current - 1 + totalSlides) % totalSlides);
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    timerId = setInterval(nextSlide, 6000);
+  }
+
+  function stopAutoplay() {
+    if (timerId) clearInterval(timerId);
+  }
+
+  // Prev / Next button actions
+  const prevBtn = document.getElementById('hero-prev-btn');
+  const nextBtn = document.getElementById('hero-next-btn');
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      startAutoplay();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      startAutoplay();
+    });
+  }
+
+  // Dots navigation
+  dots.forEach((dot, idx) => {
+    dot.addEventListener('click', () => {
+      showSlide(idx);
+      startAutoplay();
+    });
+  });
+
+  // Start Autoplay on mount
+  startAutoplay();
+</script>

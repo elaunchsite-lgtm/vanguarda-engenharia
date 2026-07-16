@@ -1,0 +1,272 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Icon from '../../components/Icon.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const categories = ['Todos', 'Engenharia', 'Arquitetura', 'Sustentabilidade'];
+---
+
+<Layout title="Blog de Engenharia & Estudos — Vanguarda" activePage="blog">
+  <div class="w-full bg-slate-50 text-slate-800">
+    {/* Blog Page Banner */}
+    <section class="bg-slate-950 py-20 px-4 text-center text-white relative">
+      <div class="absolute inset-0 z-0 opacity-20">
+        <img
+          src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=1200&q=80"
+          alt="Engenheiro analisando tablet"
+          referrerpolicy="no-referrer"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="relative z-10 max-w-4xl mx-auto space-y-4">
+        <span class="font-mono text-xs font-bold text-brand-primary tracking-widest block uppercase">
+          Artigos Técnicos e Estudos
+        </span>
+        <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight uppercase leading-tight">
+          Vanguarda Intelligence Blog
+        </h1>
+        <div class="w-16 h-1 bg-brand-primary mx-auto"></div>
+        <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed">
+          Nossa divisão de pesquisa compartilha conhecimento de ponta sobre BIM, engenharia de materiais, sustentabilidade e gestão de canteiros.
+        </p>
+      </div>
+    </section>
+
+    {/* Main Container */}
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+      {/* Left column: Search and Posts Grid */}
+      <div class="lg:col-span-8 space-y-8">
+        {/* Filters and Search Bar Container */}
+        <div class="bg-white p-5 rounded-lg border border-slate-100 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
+          {/* Category selection */}
+          <div class="flex flex-wrap gap-1.5 w-full md:w-auto">
+            {categories.map((cat) => (
+              <button
+                data-blog-filter={cat}
+                class={`px-3.5 py-1.5 rounded text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                  cat === 'Todos'
+                    ? 'bg-brand-primary text-slate-950 shadow-md'
+                    : 'bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-950'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Search Input */}
+          <div class="relative w-full md:w-64 shrink-0">
+            <input
+              type="text"
+              id="blog-search-input"
+              placeholder="Pesquisar artigos..."
+              class="w-full bg-slate-50 border border-slate-200 focus:border-brand-primary focus:bg-white pl-9 pr-3 py-2 rounded text-xs outline-none transition-all"
+            />
+            <div class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+              <Icon name="Search" class="w-4 h-4" />
+            </div>
+          </div>
+        </div>
+
+        {/* Posts Grid Container */}
+        <div id="posts-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          {posts.map((post) => (
+            <div 
+              data-blog-card 
+              data-category={post.data.category || 'Engenharia'} 
+              data-search-text={`${post.data.title.toLowerCase()} ${(post.data.description || '').toLowerCase()} ${(post.data.tags || []).join(' ').toLowerCase()}`}
+            >
+              <BlogCard post={post} />
+            </div>
+          ))}
+        </div>
+
+        {/* Empty state panel */}
+        <div id="posts-empty-state" class="hidden bg-white border border-slate-150 p-12 text-center rounded-lg space-y-3">
+          <div class="text-slate-300 mx-auto w-10 h-10 flex items-center justify-center">
+            <Icon name="BookOpen" class="w-10 h-10" />
+          </div>
+          <h3 class="font-display font-bold text-slate-950 uppercase text-sm">Nenhum artigo localizado</h3>
+          <p class="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
+            Não encontramos publicações com esses critérios. Experimente buscar termos técnicos mais gerais como "BIM", "concreto" ou "biofilia".
+          </p>
+          <button
+            id="clear-blog-filters-btn"
+            class="bg-slate-950 hover:bg-brand-primary text-white hover:text-slate-950 px-4 py-2 rounded text-xs font-mono font-bold uppercase transition-all mt-4 cursor-pointer"
+          >
+            Limpar Filtros
+          </button>
+        </div>
+      </div>
+
+      {/* Right column: Sidebar (Newsletter & Highlight) */}
+      <aside class="lg:col-span-4 space-y-8">
+        {/* Newsletter subscription card */}
+        <div class="bg-slate-950 text-white p-6 sm:p-8 rounded-xl border border-slate-900 shadow-xl space-y-5 relative overflow-hidden">
+          <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-primary/10 rounded-full blur-2xl"></div>
+          
+          <div class="space-y-2">
+            <div class="text-brand-primary">
+              <Icon name="Mail" class="w-7 h-7" />
+            </div>
+            <h3 class="font-display font-bold text-base uppercase tracking-tight">
+              Newsletter de Engenharia
+            </h3>
+            <p class="text-xs text-slate-400 leading-relaxed font-light font-sans">
+              Assine e receba quinzenalmente nossos estudos de caso, análises de conformidade de concreto e tendências de inovação predial.
+            </p>
+          </div>
+
+          <form id="blog-newsletter-form" class="space-y-3">
+            <input
+              type="email"
+              required
+              id="newsletter-email"
+              placeholder="Seu e-mail corporativo"
+              class="w-full bg-slate-900 border border-slate-800 focus:border-brand-primary focus:bg-slate-950 p-3 rounded text-xs outline-none text-white transition-all"
+            />
+            <button
+              type="submit"
+              class="w-full bg-brand-primary hover:bg-white text-slate-950 px-4 py-2.5 rounded font-display text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center space-x-1.5 cursor-pointer"
+            >
+              <Icon name="Send" class="w-3.5 h-3.5" />
+              <span>Assinar Boletim</span>
+            </button>
+          </form>
+
+          {/* Success screen (hidden initially) */}
+          <div id="newsletter-success" class="hidden bg-amber-500/10 border border-amber-500/30 text-brand-primary p-4 rounded-lg text-center space-y-2 animate-in fade-in duration-300">
+            <Icon name="ShieldCheck" class="w-5 h-5 mx-auto" />
+            <span class="font-mono text-[10px] font-bold uppercase block">Inscrição Efetuada</span>
+            <p class="text-[11px] leading-relaxed">
+              Seu e-mail foi cadastrado em nossa rede de auditoria técnica. Seja bem-vindo!
+            </p>
+          </div>
+
+          <span class="text-[9px] text-slate-500 block text-center uppercase tracking-widest font-mono">
+            Livre de Spam • Cancelamento Fácil
+          </span>
+        </div>
+
+        {/* Quick Stats Banner card */}
+        <div class="bg-white rounded-xl p-6 border border-slate-150 shadow-sm space-y-4">
+          <h3 class="font-display font-extrabold text-slate-950 text-sm uppercase tracking-wider border-l-2 border-brand-primary pl-3">
+            Divisão de Pesquisa Vanguarda
+          </h3>
+          <p class="text-xs text-slate-500 leading-relaxed font-light font-sans">
+            Nossa produção de conteúdo é liderada por engenheiros com mestrado e doutorado dedicados ao desenvolvimento de novos materiais e à integridade estrutural. Nenhuma inteligência artificial escreve nossos relatórios: as análises são baseadas em ensaios laboratoriais reais.
+          </p>
+          <div class="pt-2 border-t border-slate-100 flex justify-between text-[11px] text-slate-400 font-mono">
+            <span>Ensaios Ativos</span>
+            <span class="text-brand-primary font-bold">14 Materiais</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  let activeCategory = 'Todos';
+  let searchTerm = '';
+
+  const triggers = document.querySelectorAll('[data-blog-filter]');
+  const cards = document.querySelectorAll('[data-blog-card]');
+  const searchInput: any = document.getElementById('blog-search-input');
+  const emptyState = document.getElementById('posts-empty-state');
+  const clearBtn = document.getElementById('clear-blog-filters-btn');
+
+  function updateFilters() {
+    let visibleCount = 0;
+
+    cards.forEach((card: any) => {
+      const category = card.getAttribute('data-category');
+      const text = card.getAttribute('data-search-text') || '';
+
+      const matchesCategory = activeCategory === 'Todos' || category === activeCategory;
+      const matchesSearch = text.includes(searchTerm.toLowerCase());
+
+      if (matchesCategory && matchesSearch) {
+        card.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    if (visibleCount === 0) {
+      emptyState?.classList.remove('hidden');
+    } else {
+      emptyState?.classList.add('hidden');
+    }
+  }
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      activeCategory = trigger.getAttribute('data-blog-filter') || 'Todos';
+
+      triggers.forEach((btn) => {
+        if (btn === trigger) {
+          btn.classList.remove('bg-slate-50', 'text-slate-600', 'hover:bg-slate-100', 'hover:text-slate-950');
+          btn.classList.add('bg-brand-primary', 'text-slate-950', 'shadow-md');
+        } else {
+          btn.classList.add('bg-slate-50', 'text-slate-600', 'hover:bg-slate-100', 'hover:text-slate-950');
+          btn.classList.remove('bg-brand-primary', 'text-slate-950', 'shadow-md');
+        }
+      });
+
+      updateFilters();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e: any) => {
+      searchTerm = e.target.value;
+      updateFilters();
+    });
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      activeCategory = 'Todos';
+      searchTerm = '';
+      if (searchInput) searchInput.value = '';
+
+      triggers.forEach((btn) => {
+        const cat = btn.getAttribute('data-blog-filter');
+        if (cat === 'Todos') {
+          btn.classList.remove('bg-slate-50', 'text-slate-600', 'hover:bg-slate-100', 'hover:text-slate-950');
+          btn.classList.add('bg-brand-primary', 'text-slate-950', 'shadow-md');
+        } else {
+          btn.classList.add('bg-slate-50', 'text-slate-600', 'hover:bg-slate-100', 'hover:text-slate-950');
+          btn.classList.remove('bg-brand-primary', 'text-slate-950', 'shadow-md');
+        }
+      });
+
+      updateFilters();
+    });
+  }
+
+  // Newsletter Submit simulation
+  const newsletterForm = document.getElementById('blog-newsletter-form');
+  const newsletterSuccess = document.getElementById('newsletter-success');
+
+  if (newsletterForm && newsletterSuccess) {
+    newsletterForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.setAttribute('disabled', 'true');
+        submitBtn.innerHTML = '<span class="w-3.5 h-3.5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></span><span>Cadastrando...</span>';
+      }
+
+      setTimeout(() => {
+        newsletterForm.classList.add('hidden');
+        newsletterSuccess.classList.remove('hidden');
+      }, 1500);
+    });
+  }
+</script>

@@ -1,0 +1,168 @@
+---
+import { PROJECTS } from '../data';
+import Icon from './Icon.astro';
+
+const categories = [
+  { label: 'Todos os Projetos', value: 'todos' },
+  { label: 'Construção Civil', value: 'civil' },
+  { label: 'Residencial', value: 'residencial' },
+  { label: 'Industrial', value: 'industrial' },
+  { label: 'Corporativo', value: 'corporativo' }
+];
+---
+
+<section id="projetos" class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white">
+  <div class="max-w-7xl mx-auto">
+    {/* Header and Filter */}
+    <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-8 mb-16">
+      <div class="space-y-4 max-w-xl">
+        <span class="font-mono text-xs font-bold text-amber-500 tracking-widest block uppercase">
+          Nosso Portfólio
+        </span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight uppercase">
+          Obras Reais, Marcos Duráveis
+        </h2>
+        <div class="w-16 h-1 bg-amber-500"></div>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          Explore nossa galeria de grandes empreendimentos civis, residências de luxo e plantas logísticas projetadas sob medida.
+        </p>
+      </div>
+
+      {/* Filters */}
+      <div class="flex flex-wrap gap-2">
+        {categories.map((cat) => (
+          <button
+            data-filter-trigger={cat.value}
+            class={`px-4 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer border ${
+              cat.value === 'todos'
+                ? 'bg-amber-500 text-slate-950 border-amber-500 shadow-lg shadow-amber-500/10'
+                : 'bg-slate-800 text-slate-300 border-slate-700 hover:border-slate-500 hover:text-white'
+            }`}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    {/* Project Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {PROJECTS.map((project) => (
+        <div
+          data-project-card
+          data-category={project.category}
+          class="bg-slate-950 rounded-lg overflow-hidden border border-slate-800 hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between group"
+        >
+          {/* Image Thumbnail */}
+          <div class="relative h-60 overflow-hidden bg-slate-900 border-b border-slate-800">
+            <img
+              src={project.imageUrl}
+              alt={project.title}
+              referrerpolicy="no-referrer"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div class="absolute top-4 left-4 z-10">
+              {project.status === 'concluido' && (
+                <span class="bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 px-2.5 py-0.5 text-[10px] font-mono rounded-full font-bold uppercase">
+                  Concluído
+                </span>
+              )}
+              {project.status === 'em_andamento' && (
+                <span class="bg-amber-500/10 text-amber-600 border border-amber-500/20 px-2.5 py-0.5 text-[10px] font-mono rounded-full font-bold uppercase">
+                  Em Andamento
+                </span>
+              )}
+              {project.status === 'projeto' && (
+                <span class="bg-blue-500/10 text-blue-600 border border-blue-500/20 px-2.5 py-0.5 text-[10px] font-mono rounded-full font-bold uppercase">
+                  Em Projeto
+                </span>
+              )}
+            </div>
+            <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span class="bg-amber-500 text-slate-950 p-3 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+              </span>
+            </div>
+          </div>
+
+          {/* Project Card Info */}
+          <div class="p-6 flex-1 flex flex-col justify-between space-y-6">
+            <div class="space-y-3">
+              <span class="font-mono text-[10px] text-amber-500 tracking-wider font-bold uppercase block">
+                {project.category === 'civil' && 'Construção Civil Pesada'}
+                {project.category === 'residencial' && 'Residencial de Alto Padrão'}
+                {project.category === 'industrial' && 'Infraestrutura Industrial'}
+                {project.category === 'corporativo' && 'Retrofit Corporativo'}
+              </span>
+              <h3 class="font-display font-bold text-lg text-white tracking-tight leading-tight group-hover:text-amber-500 transition-colors">
+                {project.title}
+              </h3>
+              <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                {project.description}
+              </p>
+            </div>
+
+            {/* Specs metadata */}
+            <div class="pt-4 border-t border-slate-900 grid grid-cols-3 gap-2 text-[11px] font-mono text-slate-400">
+              <div class="flex flex-col space-y-1">
+                <span class="text-[9px] text-slate-600 uppercase font-semibold">Localização</span>
+                <span class="truncate text-slate-300 flex items-center space-x-1">
+                  <Icon name="MapPin" class="w-3 h-3 text-amber-500 shrink-0" />
+                  <span class="truncate">{project.location.split(',')[1] || project.location}</span>
+                </span>
+              </div>
+              <div class="flex flex-col space-y-1">
+                <span class="text-[9px] text-slate-600 uppercase font-semibold">Área Útil</span>
+                <span class="truncate text-slate-300 flex items-center space-x-1">
+                  <Icon name="Layers" class="w-3 h-3 text-amber-500 shrink-0" />
+                  <span>{project.area}</span>
+                </span>
+              </div>
+              <div class="flex flex-col space-y-1">
+                <span class="text-[9px] text-slate-600 uppercase font-semibold">Entrega</span>
+                <span class="truncate text-slate-300 flex items-center space-x-1">
+                  <Icon name="Calendar" class="w-3 h-3 text-amber-500 shrink-0" />
+                  <span>{project.year}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const triggers = document.querySelectorAll('[data-filter-trigger]');
+  const cards = document.querySelectorAll('[data-project-card]');
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const filterValue = trigger.getAttribute('data-filter-trigger');
+
+      // Update active button classes
+      triggers.forEach((btn) => {
+        if (btn === trigger) {
+          btn.classList.remove('bg-slate-800', 'text-slate-300', 'border-slate-700', 'hover:border-slate-500', 'hover:text-white');
+          btn.classList.add('bg-amber-500', 'text-slate-950', 'border-amber-500', 'shadow-lg', 'shadow-amber-500/10');
+        } else {
+          btn.classList.remove('bg-amber-500', 'text-slate-950', 'border-amber-500', 'shadow-lg', 'shadow-amber-500/10');
+          btn.classList.add('bg-slate-800', 'text-slate-300', 'border-slate-700', 'hover:border-slate-500', 'hover:text-white');
+        }
+      });
+
+      // Filter cards
+      cards.forEach((card: any) => {
+        const cat = card.getAttribute('data-category');
+        if (filterValue === 'todos' || cat === filterValue) {
+          card.classList.remove('hidden');
+          card.classList.add('flex');
+        } else {
+          card.classList.remove('flex');
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,355 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { config } from '../lib/config';
+
+const faqs = [
+  {
+    q: 'Como é elaborado o orçamento e cronograma técnico?',
+    a: 'Nossa equipe de orçamentistas extrai quantitativos detalhados diretamente do modelo digital 3D (BIM). Isso nos permite cotar aço, concreto e horas de mão de obra de forma extremamente fiel à realidade física, resultando em precisão superior a 95%.'
+  },
+  {
+    q: 'A Vanguarda realiza obras fora do estado de São Paulo?',
+    a: 'Sim. Embora nossa sede operacional principal fique no Itaim Bibi (SP), possuímos infraestrutura logística e equipes credenciadas capazes de mobilizar canteiros de grande porte em todas as regiões sul, sudeste e nordeste do Brasil.'
+  },
+  {
+    q: 'Quais as garantias pós-entrega que vocês fornecem?',
+    a: 'De acordo com o Código Civil brasileiro e nossas políticas internas de excelência, fornecemos 5 anos de garantia total contra qualquer vício ou defeito de solidez e segurança estrutural, além de assistência pós-obra dedicada no primeiro ano.'
+  }
+];
+---
+
+<Layout title={`Fale Conosco — ${config.siteName}`} activePage="contato">
+  <div class="w-full bg-slate-50 text-slate-800">
+    {/* Header Banner */}
+    <section class="bg-slate-950 py-20 px-4 text-center text-white relative">
+      <div class="absolute inset-0 z-0 opacity-20">
+        <img
+          src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80"
+          alt="Canteiro de obras"
+          referrerpolicy="no-referrer"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="relative z-10 max-w-4xl mx-auto space-y-4">
+        <span class="font-mono text-xs font-bold text-brand-primary tracking-widest block uppercase">
+          Canal de Engenharia
+        </span>
+        <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight uppercase leading-tight">
+          Fale com Nossos Especialistas
+        </h1>
+        <div class="w-16 h-1 bg-brand-primary mx-auto"></div>
+        <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed font-sans">
+          Inicie um estudo de viabilidade técnica, solicite visitas ao terreno ou tire dúvidas sobre projetos civis e retrofits.
+        </p>
+      </div>
+    </section>
+
+    {/* Main Grid content */}
+    <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+      {/* Left Column: Form */}
+      <div class="lg:col-span-7 bg-white p-6 sm:p-10 rounded-xl border border-slate-100 shadow-xl shadow-slate-950/5">
+        <h2 class="font-display text-xl sm:text-2xl font-bold text-slate-950 uppercase tracking-tight mb-6">
+          Enviar Mensagem Técnica
+        </h2>
+
+        {/* Success Screen (hidden initially) */}
+        <div id="contact-success" class="hidden bg-emerald-50 border border-emerald-200 text-emerald-800 p-6 rounded-lg text-center space-y-4 animate-in fade-in duration-300">
+          <div class="w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto shadow-md">
+            <Icon name="CheckCircle2" class="w-6 h-6" />
+          </div>
+          <h3 class="font-display font-bold text-base uppercase">Transmissão Confirmada!</h3>
+          <p class="text-xs sm:text-sm leading-relaxed text-emerald-700 font-sans">
+            Sua mensagem foi protocolada e direcionada diretamente ao nosso departamento técnico de engenharia de custos. Um engenheiro entrará em contato técnico em até <strong>24 horas úteis</strong> no telefone ou e-mail fornecido.
+          </p>
+          <button
+            id="new-message-btn"
+            class="bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-xs uppercase px-4 py-2 rounded font-bold transition-all cursor-pointer"
+          >
+            Nova Mensagem
+          </button>
+        </div>
+
+        {/* Form */}
+        <form id="contact-form" class="space-y-6">
+          {/* Grid 2 cols */}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="space-y-1.5">
+              <label for="nome" class="font-mono text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+                Nome Completo *
+              </label>
+              <input
+                type="text"
+                id="nome"
+                required
+                placeholder="Ex: Carlos Silva de Souza"
+                class="w-full bg-slate-50 border border-slate-200 focus:border-brand-primary focus:bg-white p-3 rounded text-sm outline-none transition-all font-sans"
+              />
+            </div>
+            <div class="space-y-1.5">
+              <label for="email" class="font-mono text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+                E-mail Corporativo *
+              </label>
+              <input
+                type="email"
+                id="email"
+                required
+                placeholder="Ex: carlos@empresa.com"
+                class="w-full bg-slate-50 border border-slate-200 focus:border-brand-primary focus:bg-white p-3 rounded text-sm outline-none transition-all font-sans"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="space-y-1.5">
+              <label for="telefone" class="font-mono text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+                Telefone de Contato *
+              </label>
+              <input
+                type="tel"
+                id="telefone"
+                required
+                placeholder="Ex: (11) 98888-7777"
+                class="w-full bg-slate-50 border border-slate-200 focus:border-brand-primary focus:bg-white p-3 rounded text-sm outline-none transition-all font-sans"
+              />
+            </div>
+            <div class="space-y-1.5">
+              <label for="assunto" class="font-mono text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+                Objetivo do Contato
+              </label>
+              <div class="relative">
+                <select
+                  id="assunto"
+                  class="w-full bg-slate-50 border border-slate-200 focus:border-brand-primary focus:bg-white p-3 rounded text-sm outline-none transition-all appearance-none cursor-pointer font-sans"
+                >
+                  <option value="orcamento">Solicitar Orçamento / Estudo BIM</option>
+                  <option value="visita">Agendar Visita ao Terreno</option>
+                  <option value="parceria">Parcerias / Fornecedores</option>
+                  <option value="outros">Dúvidas Gerais / Outros</option>
+                </select>
+                <div class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="font-mono text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+              Tipo de Obra Predominante
+            </label>
+            <input type="hidden" id="tipoObra" value="civil" />
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              {['civil', 'residencial', 'industrial', 'retrofit'].map((cat, idx) => (
+                <button
+                  type="button"
+                  data-category-selector={cat}
+                  class={`py-2 px-3 rounded text-xs font-mono font-bold uppercase border transition-all cursor-pointer ${
+                    idx === 0
+                      ? 'bg-slate-950 text-brand-primary border-slate-950 shadow-md'
+                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  {cat === 'civil' && 'Civil Pesada'}
+                  {cat === 'residencial' && 'Residencial'}
+                  {cat === 'industrial' && 'Industrial'}
+                  {cat === 'retrofit' && 'Retrofit'}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div class="space-y-1.5">
+            <label for="mensagem" class="font-mono text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+              Descrição das Necessidades Técnicas *
+            </label>
+            <textarea
+              id="mensagem"
+              required
+              rows="5"
+              placeholder="Por favor, descreva o local da obra, dimensões básicas, se já possui projeto estrutural e prazos desejados."
+              class="w-full bg-slate-50 border border-slate-200 focus:border-brand-primary focus:bg-white p-3 rounded text-sm outline-none transition-all resize-y font-sans"
+            ></textarea>
+          </div>
+
+          <div class="flex items-start space-x-2.5">
+            <input
+              type="checkbox"
+              id="aceitaTermos"
+              required
+              class="mt-1 accent-brand-primary w-4 h-4 cursor-pointer"
+            />
+            <label for="aceitaTermos" class="text-xs text-slate-500 leading-relaxed select-none font-sans">
+              Concordo com o processamento de meus dados pessoais técnicos em total conformidade com a LGPD e políticas de privacidade.
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-brand-primary hover:bg-slate-950 text-slate-950 hover:text-brand-primary p-4 rounded font-display text-xs font-bold uppercase tracking-wider transition-all duration-300 flex items-center justify-center space-x-2 cursor-pointer shadow-lg shadow-brand-primary/10"
+          >
+            <Icon name="Send" class="w-4 h-4" />
+            <span>Enviar para Auditoria Técnica</span>
+          </button>
+        </form>
+      </div>
+
+      {/* Right Column: Address, Map and FAQ */}
+      <div class="lg:col-span-5 space-y-10">
+        {/* Coordinates Cards */}
+        <div class="bg-slate-950 text-white p-6 sm:p-8 rounded-xl space-y-6 border border-slate-900">
+          <h3 class="font-display font-bold text-sm uppercase tracking-wider text-brand-primary border-l-2 border-brand-primary pl-3">
+            Canais Diretos de Contato
+          </h3>
+          
+          <div class="space-y-4 text-xs sm:text-sm">
+            <div class="flex items-start space-x-3.5">
+              <Icon name="MapPin" class="w-5 h-5 text-brand-primary shrink-0 mt-0.5" />
+              <div>
+                <span class="font-bold text-slate-300 block mb-0.5">Sede Administrativa</span>
+                <span class="text-slate-400 font-light leading-relaxed font-sans">
+                  Av. Brigadeiro Faria Lima, 3477 - 14º Andar, Itaim Bibi, São Paulo - SP, CEP 04538-133
+                </span>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3.5">
+              <Icon name="Phone" class="w-5 h-5 text-brand-primary shrink-0 mt-0.5" />
+              <div>
+                <span class="font-bold text-slate-300 block mb-0.5">Telefones Técnicos</span>
+                <span class="text-slate-400 font-mono text-xs block font-mono">Vendas: +55 (11) 3088-5555</span>
+                <span class="text-slate-400 font-mono text-xs block font-mono">Suporte Canteiros: 0800 520 2001</span>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3.5">
+              <Icon name="Mail" class="w-5 h-5 text-brand-primary shrink-0 mt-0.5" />
+              <div>
+                <span class="font-bold text-slate-300 block mb-0.5">E-mails Oficiais</span>
+                <span class="text-slate-400 font-light block font-sans">Comercial: orcamentos@vanguardaengenharia.com</span>
+                <span class="text-slate-400 font-light block font-sans">Imprensa: media@vanguardaengenharia.com</span>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3.5">
+              <Icon name="Clock" class="w-5 h-5 text-brand-primary shrink-0 mt-0.5" />
+              <div>
+                <span class="font-bold text-slate-300 block mb-0.5">Horários de Atendimento</span>
+                <span class="text-slate-400 font-light block font-sans">Escritório: Seg a Sex: 08:00 - 18:00</span>
+                <span class="text-slate-400 font-light block font-sans">Canteiros/Fábrica: Seg a Sáb: 07:00 - 17:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Aesthetic Mock Map Display */}
+        <div class="relative rounded-xl overflow-hidden h-60 border border-slate-200 shadow-sm bg-slate-900 group">
+          <div class="absolute inset-0 opacity-40 bg-[radial-gradient(var(--color-brand-primary)_1px,transparent_1px)] [background-size:16px_16px]"></div>
+          <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center text-white z-10 space-y-3.5">
+            <div class="bg-brand-primary text-slate-950 p-2.5 rounded-full shadow-lg">
+              <Icon name="MapPin" class="w-5 h-5" />
+            </div>
+            <div>
+              <span class="font-display font-bold text-xs uppercase tracking-wider block text-brand-primary">Itaim Bibi, São Paulo</span>
+              <span class="text-[11px] text-slate-400 block max-w-xs mx-auto font-sans">Av. Brigadeiro Faria Lima, 3477 (Próximo à Av. Juscelino Kubitschek)</span>
+            </div>
+            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest block font-mono">Geolocalização Integrada</span>
+          </div>
+          {/* Dark glass backdrop filter mimicking modern overlays */}
+          <div class="absolute inset-0 bg-slate-950/70"></div>
+        </div>
+
+        {/* FAQs widgets */}
+        <div class="space-y-4">
+          <h3 class="font-display font-extrabold text-slate-950 uppercase tracking-wider text-sm border-l-2 border-brand-primary pl-3">
+            Dúvidas Técnicas Frequentes
+          </h3>
+          <div class="space-y-3">
+            {faqs.map((faq) => (
+              <div class="bg-white p-4 rounded-lg border border-slate-150 shadow-sm space-y-1.5">
+                <h4 class="font-display font-bold text-slate-900 text-xs sm:text-sm">
+                  {faq.q}
+                </h4>
+                <p class="text-xs text-slate-500 leading-relaxed font-light font-sans">
+                  {faq.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  // Category buttons selection
+  const catSelectors = document.querySelectorAll('[data-category-selector]');
+  const hiddenInput: any = document.getElementById('tipoObra');
+
+  catSelectors.forEach((selector) => {
+    selector.addEventListener('click', () => {
+      const selectedValue = selector.getAttribute('data-category-selector') || 'civil';
+      if (hiddenInput) hiddenInput.value = selectedValue;
+
+      catSelectors.forEach((btn) => {
+        if (btn === selector) {
+          btn.classList.remove('bg-slate-50', 'text-slate-600', 'border-slate-200', 'hover:bg-slate-100');
+          btn.classList.add('bg-slate-950', 'text-brand-primary', 'border-slate-950', 'shadow-md');
+        } else {
+          btn.classList.add('bg-slate-50', 'text-slate-600', 'border-slate-200', 'hover:bg-slate-100');
+          btn.classList.remove('bg-slate-950', 'text-brand-primary', 'border-slate-950', 'shadow-md');
+        }
+      });
+    });
+  });
+
+  // Form Submit Simulation
+  const contactForm = document.getElementById('contact-form');
+  const contactSuccess = document.getElementById('contact-success');
+  const newMessageBtn = document.getElementById('new-message-btn');
+
+  if (contactForm && contactSuccess) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.setAttribute('disabled', 'true');
+        submitBtn.innerHTML = '<span class="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin shrink-0"></span><span>Processando Orçamento...</span>';
+      }
+
+      setTimeout(() => {
+        contactForm.classList.add('hidden');
+        contactSuccess.classList.remove('hidden');
+      }, 1800);
+    });
+  }
+
+  if (newMessageBtn && contactForm && contactSuccess) {
+    newMessageBtn.addEventListener('click', () => {
+      contactSuccess.classList.add('hidden');
+      contactForm.classList.remove('hidden');
+
+      // Reset form fields
+      const nameInput: any = document.getElementById('nome');
+      const emailInput: any = document.getElementById('email');
+      const telInput: any = document.getElementById('telefone');
+      const msgInput: any = document.getElementById('mensagem');
+      const termsInput: any = document.getElementById('aceitaTermos');
+
+      if (nameInput) nameInput.value = '';
+      if (emailInput) emailInput.value = '';
+      if (telInput) telInput.value = '';
+      if (msgInput) msgInput.value = '';
+      if (termsInput) termsInput.checked = false;
+
+      // Reset submit button state
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.removeAttribute('disabled');
+        submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg><span>Enviar para Auditoria Técnica</span>';
+      }
+    });
+  }
+</script>
