@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import { TEAM_MEMBERS } from '../data';
 import Icon from '../components/Icon.astro';
@@ -41,10 +42,12 @@ const milestones = [
     {/* Page Header Banner */}
     <section id="page-hero" class="bg-slate-950 py-20 px-4 text-center text-white relative">
       <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80"
           alt="Construção fundo"
-          referrerpolicy="no-referrer"
+          width={800}
+          height={450}
+          densities={[1, 2]}
           class="w-full h-full object-cover"
         />
       </div>
@@ -69,36 +72,44 @@ const milestones = [
         <div class="grid grid-cols-2 gap-4">
           <div class="space-y-4">
             <div class="rounded-lg overflow-hidden h-48 border border-slate-200">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=600&q=80"
                 alt="Engenharia de controle"
-                referrerpolicy="no-referrer"
+                width={800}
+                height={450}
+                densities={[1, 2]}
                 class="w-full h-full object-cover"
               />
             </div>
             <div class="rounded-lg overflow-hidden h-64 border border-slate-200">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80"
                 alt="Concreto e vidro"
-                referrerpolicy="no-referrer"
+                width={800}
+                height={450}
+                densities={[1, 2]}
                 class="w-full h-full object-cover"
               />
             </div>
           </div>
           <div class="space-y-4 pt-8">
             <div class="rounded-lg overflow-hidden h-64 border border-slate-200">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80"
                 alt="Arrabhal de concreto"
-                referrerpolicy="no-referrer"
+                width={800}
+                height={450}
+                densities={[1, 2]}
                 class="w-full h-full object-cover"
               />
             </div>
             <div class="rounded-lg overflow-hidden h-48 border border-slate-200">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80"
                 alt="Logística de obras"
-                referrerpolicy="no-referrer"
+                width={800}
+                height={450}
+                densities={[1, 2]}
                 class="w-full h-full object-cover"
               />
             </div>
@@ -242,10 +253,12 @@ const milestones = [
             >
               {/* Photo */}
               <div class="relative h-64 overflow-hidden bg-slate-200">
-                <img
+                <Image
                   src={member.imageUrl}
                   alt={member.name}
-                  referrerpolicy="no-referrer"
+                  width={800}
+                  height={450}
+                  densities={[1, 2]}
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-60 pointer-events-none"></div>

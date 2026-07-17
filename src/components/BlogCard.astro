@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 
 interface Props {
@@ -51,10 +52,12 @@ if (authorName.includes('Helena')) {
   <a href={`/blog/${id}`} class="block h-full flex flex-col justify-between">
     {/* Blog Thumbnail Image */}
     <div class="relative h-52 overflow-hidden bg-slate-100">
-      <img
+      <Image
         src={imageUrl}
         alt={title}
-        referrerpolicy="no-referrer"
+        width={800}
+        height={450}
+        densities={[1, 2]}
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
       />
       {/* Category Badge overlay */}
@@ -94,10 +97,12 @@ if (authorName.includes('Helena')) {
       {/* Author Footer */}
       <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
         <div class="flex items-center space-x-3">
-          <img
+          <Image
             src={authorAvatar}
             alt={authorName}
-            referrerpolicy="no-referrer"
+            width={800}
+            height={450}
+            densities={[1, 2]}
             class="w-7 h-7 rounded-full object-cover border border-slate-100"
           />
           <div>

@@ -56,10 +56,12 @@ const categories = [
         >
           {/* Image Thumbnail */}
           <div class="relative h-60 overflow-hidden bg-slate-900 border-b border-slate-800">
-            <img
+            <Image
               src={project.imageUrl}
               alt={project.title}
-              referrerpolicy="no-referrer"
+              width={800}
+              height={450}
+              densities={[1, 2]}
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div class="absolute top-4 left-4 z-10">

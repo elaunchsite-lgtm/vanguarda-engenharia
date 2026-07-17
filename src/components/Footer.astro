@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 import { config } from '../lib/config';
 
@@ -23,7 +24,7 @@ const navItems = config.navigation && config.navigation.length > 0 ? config.navi
         class="flex items-center space-x-2.5 text-left focus:outline-none cursor-pointer self-start group"
       >
         {config.logoUrl ? (
-          <img src={config.logoUrl} alt={config.siteName} class="h-10 w-auto object-contain" />
+          <Image src={config.logoUrl} alt={config.siteName} width={800} height={450} densities={[1, 2]} class="h-10 w-auto object-contain" />
         ) : (
           <div class="bg-brand-primary text-slate-950 p-2 rounded group-hover:bg-white transition-colors duration-300">
             <Icon name="Building2" class="w-6 h-6" />

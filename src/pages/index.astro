@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import HeroCarousel from '../components/HeroCarousel.astro';
 import ServicesSection from '../components/ServicesSection.astro';
@@ -120,10 +121,12 @@ const clientLogos = [
 
         {/* Graphical side panel */}
         <div class="relative rounded-lg overflow-hidden h-96 lg:h-[480px] border border-slate-100 shadow-xl group">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80"
             alt={`Canteiro de obras ${config.siteName}`}
-            referrerpolicy="no-referrer"
+            width={800}
+            height={450}
+            densities={[1, 2]}
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           {/* Ambient orange badge on the bottom */}
@@ -146,10 +149,12 @@ const clientLogos = [
     {/* Dynamic Concrete CTA Mid-Banner */}
     <section class="relative py-24 bg-slate-950 overflow-hidden text-center text-white">
       <div class="absolute inset-0 z-0 opacity-40">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=1600&q=80"
           alt="Concreto bruto industrial"
-          referrerpolicy="no-referrer"
+          width={800}
+          height={450}
+          densities={[1, 2]}
           class="w-full h-full object-cover"
         />
       </div>
