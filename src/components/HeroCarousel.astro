@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 
 interface HeroSlide {
@@ -49,18 +50,12 @@ const slides: HeroSlide[] = [
       {/* Dark overlay with industrial yellow hue */}
       <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-transparent z-10 pointer-events-none" />
       
-      <img
-        src={`${slide.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=60')}&fm=webp`}
-        srcset={`${slide.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=60')}&fm=webp 400w, ${slide.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=60')}&fm=webp 800w, ${slide.image.replace(/w=\d+/, 'w=1200').replace(/q=\d+/, 'q=60')}&fm=webp 1200w`}
-        sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px"
+      <Image
+        src={slide.image}
         alt={slide.title}
-        width="1200"
-        height="675"
-        referrerpolicy="no-referrer"
-        loading={index === 0 ? "eager" : "lazy"}
-        fetchpriority={index === 0 ? "high" : "auto"}
-        decoding="async"
-        class="slide-img w-full h-full object-cover object-center scale-105 transition-transform duration-[6000ms] ease-out"
+        width={1200}
+        height={675}
+        class="slide-img w-full h-full object-cover object-center"
       />
 
       {/* Slide Content */}
