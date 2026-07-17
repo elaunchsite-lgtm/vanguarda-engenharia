@@ -50,8 +50,8 @@ const slides: HeroSlide[] = [
       <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-transparent z-10 pointer-events-none" />
       
       <img
-        src={slide.image}
-        srcset={`${slide.image.replace(/w=\d+/, 'w=400')} 400w, ${slide.image.replace(/w=\d+/, 'w=800')} 800w, ${slide.image.replace(/w=\d+/, 'w=1200')} 1200w`}
+        src={`${slide.image.replace(/w=\d+/, 'w=600')}`}
+        srcset={`${slide.image.replace(/w=\d+/, 'w=400')} 400w, ${slide.image.replace(/w=\d+/, 'w=600')} 600w, ${slide.image.replace(/w=\d+/, 'w=800')} 800w`}
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
         alt={slide.title}
         referrerpolicy="no-referrer"
