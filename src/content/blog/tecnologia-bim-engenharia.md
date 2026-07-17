@@ -5,7 +5,7 @@ date: "12 Julho 2026"
 author: "Eng. Ricardo Silveira"
 category: "Engenharia"
 tags: ["BIM", "Tecnologia", "Inovação", "Orçamento"]
-image: "https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=800&q=80"
+image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80"
 ---
 
 A metodologia **BIM (Building Information Modeling)** deixou de ser apenas um diferencial mercadológico para se consolidar como o pilar estrutural básico de qualquer construção moderna altamente eficiente. Diferente de desenhos bidimensionais tradicionais em CAD, o BIM cria um protótipo virtual tridimensional da obra incrivelmente rico em dados técnicos e físicos reais.

@@ -35,7 +35,7 @@ export const SERVICES: Service[] = [
     description: 'Estudos de viabilidade técnica, orçamentos inteligentes e auditorias completas para otimização máxima de investimentos.',
     fullDetails: 'Antes de escavar o solo, o sucesso de uma obra se decide na planilha de planejamento. Nossa equipe técnica de engenheiros analistas realiza projeções completas de custos, mapeamento de riscos geológicos/climáticos e estruturação de cronogramas ágeis para garantir zero desperdício.',
     icon: 'Briefcase',
-    imageUrl: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80',
     benefits: [
       'Engenharia de valor para economia sem perdas de qualidade',
       'Mapeamento antecipado de riscos regulatórios e ambientais',
@@ -157,7 +157,7 @@ Além da precisão logística, o BIM permite simular o ciclo térmico solar em d
     category: 'Engenharia',
     publishedAt: '12 Julho 2026',
     readTime: '6 min de leitura',
-    imageUrl: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80',
     tags: ['BIM', 'Tecnologia', 'Inovação', 'Orçamento']
   },
   {
