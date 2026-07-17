@@ -56,6 +56,8 @@ const slides: HeroSlide[] = [
         width={800}
         height={450}
         densities={[1, 2]}
+        loading={index === 0 ? "eager" : "lazy"}
+        fetchpriority={index === 0 ? "high" : "auto"}
         class="slide-img w-full h-full object-cover object-center"
       />
 
