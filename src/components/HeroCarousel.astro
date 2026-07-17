@@ -50,10 +50,12 @@ const slides: HeroSlide[] = [
       <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-transparent z-10 pointer-events-none" />
       
       <img
-        src={`${slide.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=60')}&fm=webp`}
-        srcset={`${slide.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=60')}&fm=webp 400w, ${slide.image.replace(/w=\d+/, 'w=600').replace(/q=\d+/, 'q=60')}&fm=webp 600w, ${slide.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=60')}&fm=webp 800w`}
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+        src={`${slide.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=60')}&fm=webp`}
+        srcset={`${slide.image.replace(/w=\d+/, 'w=400').replace(/q=\d+/, 'q=60')}&fm=webp 400w, ${slide.image.replace(/w=\d+/, 'w=800').replace(/q=\d+/, 'q=60')}&fm=webp 800w, ${slide.image.replace(/w=\d+/, 'w=1200').replace(/q=\d+/, 'q=60')}&fm=webp 1200w`}
+        sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px"
         alt={slide.title}
+        width="1200"
+        height="675"
         referrerpolicy="no-referrer"
         loading={index === 0 ? "eager" : "lazy"}
         fetchpriority={index === 0 ? "high" : "auto"}
