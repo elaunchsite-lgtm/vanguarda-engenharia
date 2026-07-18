@@ -322,22 +322,23 @@ const faqs = [
         submitBtn.innerHTML = '<span class="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin shrink-0"></span><span>Processando Orçamento...</span>';
       }
 
-      // Send to CMS
-      const nome: any = document.getElementById('nome');
-      const email: any = document.getElementById('email');
-      const tel: any = document.getElementById('telefone');
-      const msg: any = document.getElementById('mensagem');
+      // Send to CMS - capture ALL form fields dynamically
+      const formData: any = { page: 'contato' };
+      const inputs = contactForm.querySelectorAll('input, textarea, select');
+      inputs.forEach((input: any) => {
+        const name = input.name || input.id;
+        if (name) formData[name] = input.type === 'checkbox' ? input.checked : input.value;
+      });
+      // Ensure required fields
+      formData.name = formData.nome || formData.name || '';
+      formData.email = formData.email || '';
+      formData.phone = formData.telefone || formData.phone || '';
+      formData.message = formData.mensagem || formData.message || '';
 
       fetch('https://painel.e-launch.com.br/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: nome?.value || '',
-          email: email?.value || '',
-          phone: tel?.value || '',
-          message: msg?.value || '',
-          page: 'contato'
-        })
+        body: JSON.stringify(formData)
       }).catch(() => {});
 
       setTimeout(() => {
