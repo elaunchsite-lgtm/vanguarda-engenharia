@@ -322,9 +322,31 @@ const faqs = [
         submitBtn.innerHTML = '<span class="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin shrink-0"></span><span>Processando Orçamento...</span>';
       }
 
+      // Send to CMS
+      const nome: any = document.getElementById('nome');
+      const email: any = document.getElementById('email');
+      const tel: any = document.getElementById('telefone');
+      const msg: any = document.getElementById('mensagem');
+
+      fetch('https://painel.e-launch.com.br/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: nome?.value || '',
+          email: email?.value || '',
+          phone: tel?.value || '',
+          message: msg?.value || '',
+          page: 'contato'
+        })
+      }).catch(() => {});
+
       setTimeout(() => {
         contactForm.classList.add('hidden');
         contactSuccess.classList.remove('hidden');
+        if (submitBtn) {
+          submitBtn.removeAttribute('disabled');
+          submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg><span>Enviar para Auditoria Técnica</span>';
+        }
       }, 1800);
     });
   }
