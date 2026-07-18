@@ -24,8 +24,8 @@ const title = post.data.title;
 const category = post.data.category || 'Engenharia';
 const publishedAt = post.data.date || 'Julho 2026';
 const readTime = '6 min de leitura';
-const imageUrl = post.data.image || 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80';
-const tags = post.data.tags || ['Engenharia', 'Construção'];
+const imageUrl = post.data.image || "";
+const tags = post.data.tags || [];
 
 // Match author name to team avatar if possible, or use fallback
 const authorName = post.data.author || 'Eng. Ricardo Silveira';
