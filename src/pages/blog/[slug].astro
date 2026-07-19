@@ -30,7 +30,14 @@ const tags = post.data.tags || [];
 // Match author name to team avatar if possible, or use fallback
 const authorName = post.data.author || 'Eng. Ricardo Silveira';
 const authorAvatar = post.data.authorPhoto || "";
-const authorRole = 'Especialista Técnico';
+const authorRole = post.data.authorRole || 'Especialista Técnico';
+const authorBio = post.data.authorBio || '';
+const authorSocial = {
+  facebook: post.data.authorFacebook || '',
+  twitter: post.data.authorTwitter || '',
+  instagram: post.data.authorInstagram || '',
+  linkedin: post.data.authorLinkedin || '',
+};
 ---
 
 <Layout title={`${title} — Blog`} activePage="blog">
@@ -147,9 +154,17 @@ const authorRole = 'Especialista Técnico';
                 <span class="font-mono text-[10px] text-brand-primary font-bold block uppercase">{authorRole}</span>
               </div>
             </div>
-            <p class="text-xs text-slate-500 leading-relaxed font-light font-sans pt-2">
-              Especialista residente da divisão de Engenharia de Valor da Vanguarda. Pesquisa e publica relatórios integrando normas regulatórias e inovações industriais para redução de passivos civis em grandes obras.
-            </p>
+            {authorBio && (
+              <p class="text-xs text-slate-500 leading-relaxed font-light font-sans pt-2">{authorBio}</p>
+            )}
+            {(authorSocial.facebook || authorSocial.twitter || authorSocial.instagram || authorSocial.linkedin) && (
+              <div class="flex items-center gap-2 pt-2">
+                {authorSocial.facebook && <a href={authorSocial.facebook} target="_blank" rel="noopener" class="text-slate-400 hover:text-brand-primary"><Icon name="Facebook" class="w-3.5 h-3.5" /></a>}
+                {authorSocial.twitter && <a href={authorSocial.twitter} target="_blank" rel="noopener" class="text-slate-400 hover:text-brand-primary"><Icon name="Twitter" class="w-3.5 h-3.5" /></a>}
+                {authorSocial.instagram && <a href={authorSocial.instagram} target="_blank" rel="noopener" class="text-slate-400 hover:text-brand-primary"><Icon name="Instagram" class="w-3.5 h-3.5" /></a>}
+                {authorSocial.linkedin && <a href={authorSocial.linkedin} target="_blank" rel="noopener" class="text-slate-400 hover:text-brand-primary"><Icon name="Linkedin" class="w-3.5 h-3.5" /></a>}
+              </div>
+            )}
           </div>
 
           {/* Newsletter reminder */}
