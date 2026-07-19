@@ -29,19 +29,8 @@ const tags = post.data.tags || [];
 
 // Match author name to team avatar if possible, or use fallback
 const authorName = post.data.author || 'Eng. Ricardo Silveira';
-let authorAvatar = post.data.authorPhoto || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';
-let authorRole = 'Especialista Técnico';
-
-if (authorName.includes('Helena')) {
-  authorAvatar = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80';
-  authorRole = 'Especialista em Materiais';
-} else if (authorName.includes('Tiago') || authorName.includes('Mendes')) {
-  authorAvatar = 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80';
-  authorRole = 'Líder de Design';
-} else if (authorName.includes('Vargas')) {
-  authorAvatar = 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80';
-  authorRole = 'CEO & Fundador';
-}
+const authorAvatar = post.data.authorPhoto || "";
+const authorRole = 'Especialista Técnico';
 ---
 
 <Layout title={`${title} — Blog`} activePage="blog">
@@ -77,12 +66,14 @@ if (authorName.includes('Helena')) {
             {/* Author & Read info bar */}
             <div class="flex flex-wrap items-center gap-6 pt-4 border-t border-slate-100 text-xs text-slate-500 font-mono">
               <div class="flex items-center space-x-3">
-                <img
-                  src={authorAvatar}
-                  alt={authorName}
-                  referrerpolicy="no-referrer"
-                  class="w-10 h-10 rounded-full object-cover border border-slate-200"
-                />
+                {authorAvatar && (
+                  <img
+                    src={authorAvatar}
+                    alt={authorName}
+                    referrerpolicy="no-referrer"
+                    class="w-10 h-10 rounded-full object-cover border border-slate-200"
+                  />
+                )}
                 <div>
                   <span class="font-sans font-bold text-slate-900 block">{authorName}</span>
                   <span class="text-[10px] text-slate-400 block -mt-0.5">{authorRole}</span>
@@ -143,12 +134,14 @@ if (authorName.includes('Helena')) {
               Sobre o Autor
             </h3>
             <div class="flex items-center space-x-4">
-              <img
-                src={authorAvatar}
-                alt={authorName}
-                referrerpolicy="no-referrer"
-                class="w-14 h-14 rounded-full object-cover border border-slate-200"
-              />
+              {authorAvatar && (
+                <img
+                  src={authorAvatar}
+                  alt={authorName}
+                  referrerpolicy="no-referrer"
+                  class="w-14 h-14 rounded-full object-cover border border-slate-200"
+                />
+              )}
               <div>
                 <h4 class="font-sans font-bold text-sm text-slate-900 leading-snug">{authorName}</h4>
                 <span class="font-mono text-[10px] text-brand-primary font-bold block uppercase">{authorRole}</span>
