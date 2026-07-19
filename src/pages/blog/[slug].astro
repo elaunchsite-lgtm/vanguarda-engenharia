@@ -29,6 +29,7 @@ const tags = post.data.tags || [];
 
 // Match author name to team avatar if possible, or use fallback
 const authorName = post.data.author || 'Eng. Ricardo Silveira';
+const authorSlug = authorName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const authorAvatar = post.data.authorPhoto || "";
 const authorRole = post.data.authorRole || 'Especialista Técnico';
 const authorBio = post.data.authorBio || '';
@@ -82,7 +83,7 @@ const authorSocial = {
                   />
                 )}
                 <div>
-                  <span class="font-sans font-bold text-slate-900 block">{authorName}</span>
+                  <a href={`/autor/${authorSlug}`} class="font-sans font-bold text-slate-900 block hover:text-brand-primary">{authorName}</a>
                   <span class="text-[10px] text-slate-400 block -mt-0.5">{authorRole}</span>
                 </div>
               </div>

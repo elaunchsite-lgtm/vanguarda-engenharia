@@ -1,0 +1,75 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Icon from '../../components/Icon.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  // Extract unique author names from posts for paths
+  const authors = [...new Set(posts.map(p => p.data.author).filter(Boolean))];
+  return authors.map(name => ({
+    params: { slug: name?.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'autor' },
+    props: { authorName: name },
+  }));
+}
+
+const { authorName } = Astro.props;
+const allPosts = await getCollection('blog');
+const authorPosts = allPosts.filter(p => p.data.author === authorName);
+
+// Get author profile from first post's frontmatter
+const firstPost = authorPosts[0];
+const authorPhoto = firstPost?.data.authorPhoto || '';
+const authorRole = firstPost?.data.authorRole || 'Autor';
+const authorBio = firstPost?.data.authorBio || '';
+const authorFacebook = firstPost?.data.authorFacebook || '';
+const authorTwitter = firstPost?.data.authorTwitter || '';
+const authorInstagram = firstPost?.data.authorInstagram || '';
+const authorLinkedin = firstPost?.data.authorLinkedin || '';
+---
+
+<Layout title={`${authorName} — Autor`} activePage="blog">
+  <div class="w-full bg-slate-50 text-slate-800 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      {/* Author Header */}
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-8 mb-12">
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+          {authorPhoto && (
+            <img src={authorPhoto} alt={authorName} class="w-24 h-24 rounded-full object-cover border-4 border-brand-primary/20" />
+          )}
+          <div class="text-center sm:text-left space-y-2">
+            <h1 class="font-display text-2xl sm:text-3xl font-bold text-slate-950">{authorName}</h1>
+            <p class="font-mono text-sm text-brand-primary font-bold uppercase">{authorRole}</p>
+            {authorBio && <p class="text-slate-500 text-sm max-w-xl leading-relaxed">{authorBio}</p>}
+            <div class="flex items-center justify-center sm:justify-start gap-3 pt-2">
+              {authorFacebook && <a href={authorFacebook} target="_blank" rel="noopener" class="text-slate-400 hover:text-brand-primary"><Icon name="Facebook" class="w-4 h-4" /></a>}
+              {authorTwitter && <a href={authorTwitter} target="_blank" rel="noopener" class="text-slate-400 hover:text-brand-primary"><Icon name="Twitter" class="w-4 h-4" /></a>}
+              {authorInstagram && <a href={authorInstagram} target="_blank" rel="noopener" class="text-slate-400 hover:text-brand-primary"><Icon name="Instagram" class="w-4 h-4" /></a>}
+              {authorLinkedin && <a href={authorLinkedin} target="_blank" rel="noopener" class="text-slate-400 hover:text-brand-primary"><Icon name="Linkedin" class="w-4 h-4" /></a>}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Author Posts */}
+      <h2 class="font-display font-bold text-xl text-slate-950 mb-6">
+        Artigos de {authorName} ({authorPosts.length})
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {authorPosts.map(post => (<BlogCard post={{ 
+          id: post.id, 
+          data: { 
+            title: post.data.title, 
+            description: post.data.description || '', 
+            category: post.data.category || 'Engenharia', 
+            date: post.data.date || '', 
+            image: post.data.image || '' 
+          } 
+        }} />))}
+      </div>
+
+    </div>
+  </div>
+</Layout>
